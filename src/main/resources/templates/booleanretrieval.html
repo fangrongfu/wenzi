@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8">
-<title>booleanRetrival</title>
+<title>布尔检索模型</title>
 <link rel="stylesheet" type="text/css"
 	href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -233,7 +233,6 @@ $(function() {//这里是动态元素<li>添加的事件 分词结果
 				$('#results').append("<p style='color: rgb(255, 255, 255); font-size: 18px'></p>");
 				$("p").append(segments);
 			//	alert("分词成功！");
-				
 			},
 			error:function(){
 				alert("分词出错！");
@@ -469,21 +468,17 @@ $(function() {//去除提交文件的标点
 	<nav class="navbar navbar-inverse">
 		<div class="container" style="margin-left: 150px">
 			<ul class="nav nav-pills">
-				<li role="presentation"
-					style="margin-right: 50px; width: 500px; height: 50px"><img
-					src="images/IRLablogo.png" alt=""
+				<li role="presentation" style="margin-right: 50px; width: 500px; height: 80px"><img src="images/IRLablogo.png" alt=""
 					style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
-					style="color: rgb(255, 255, 255); font-size: 20px">武汉大学信息检索与知识挖掘研究所</span></li>
-				<li role="presentation" class="active" style="margin-top: 5px"><a
-					th:href="@{/index}">布尔检索模型</a></li>
-				<li role="presentation" style="margin-left: 20px; margin-top: 5px"><a
-					th:href="@{/lisongfan}">句法类API</a></li>
-				<li role="presentation" style="margin-left: 20px; margin-top: 5px"><a
-					href="#">篇章类API</a></li>
-				<li role="presentation" style="margin-left: 20px; margin-top: 5px"><a
-					href="#">下载类API</a></li>
-				<li role="presentation" style="margin-left: 60px; margin-top: 5px"><a
-					href="#">管理中心</a></li>
+					style="color: rgb(255, 255, 255); font-size: 26px">武汉大学信息检索与知识挖掘研究所</span></li>
+				<li role="presentation" class="active" ><a th:href="@{/booleanretrieval}">布尔检索模型</a></li>
+				<li role="presentation" ><a th:href="@{/vectorspacemodel}">向量空间模型</a></li>
+				<li role="presentation" ><a th:href="@{/probabilitymodel}">概率检索模型</a></li>
+				<li role="presentation" ><a th:href="@{/languagemodel}">语言模型</a></li>
+				<li role="presentation" ><a th:href="@{/learningtorank}">Learning to Rank</a></li>
+                <li role="presentation" ><a th:href="@{/lexicalanalysis}">分词</a></li>
+                <li role="presentation" ><a th:href="@{/postagging}">词性标注</a></li>
+                <li role="presentation" ><a th:href="@{/namedentityrecognition}">命名实体识别</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -627,7 +622,6 @@ $(function() {//去除提交文件的标点
 						<button id="split" class="btn btn-default" type="button" >分词</button>
 						<button id="remove" class="btn btn-default" type="button">去标点</button>
 					</div>
-					
 				</div>
 			</div>
 		</div>

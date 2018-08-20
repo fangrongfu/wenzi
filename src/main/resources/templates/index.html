@@ -108,7 +108,7 @@ $(function() {
 					$("#segments").removeAttr("class");
 					$("#noPun").removeAttr("class");
 					$("#boolResults").attr("class","active");
-					var JSONresults = JSONdata.JSONdata;
+					JSONresults = JSONdata.JSONdata;
 					$.each(JSONresults,function(index,obj) {
 						for (key in obj){ //解析出得到的文档名key 和原文contents
 							var contents = obj[key];
@@ -196,6 +196,7 @@ $(function() {//倒排索引
           $(".ra").attr("style","font-size:18px; color:white");
           $(this).attr("style","font-size:20px; color:#C0C0C0");
   		$.each(JSONresults,function(index,obj) {
+  		    console.log("到这里没有");
   		    console.log(obj[fileName]);
 			for (key in obj){
 				var contents = obj[fileName];
@@ -261,7 +262,7 @@ $(function() {//这里是动态元素<li>添加的事件去标点结果
 				$("#contents").empty();
 				$("#boolResults").removeAttr("class");
 				$("#invertedIndex").removeAttr("class");
-				$("#segments").removeAttr("class");
+				$("#segments").removeAttr("class")
 				$("#noPun").attr("class","active");
 				$('#results').append("<p style='color: rgb(255, 255, 255); font-size: 18px'></p>");
 				$("p").append(noPunSegments);

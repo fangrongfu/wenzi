@@ -12,13 +12,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = "/index")
-    public String index(){
-        return "index";
+    @RequestMapping(value = "/booleanretrieval")
+    public String booleanRetrieval(){
+        return "booleanretrieval";
     }
 
-    @RequestMapping(value = "/lisongfan")
-    public String lisongfan(){
-        return "lisongfan";
+    @RequestMapping(value = "/languagemodel")
+    public String languageModel(){
+        return "languagemodel";
     }
+
+    @RequestMapping(value = "/learningtorank")
+    public String learningToRank(){
+        return "learningtorank";
+    }
+
+    @RequestMapping(value = "/lexicalanalysis")
+    public String lexicalAnalysis(){
+        return "lexicalanalysis";
+    }
+
+    @RequestMapping(value = "/namedentityrecognition")
+    public String namedEntityRecognition(){
+        return "namedentityrecognition";
+    }
+
+    @RequestMapping(value = "/postagging")
+    public String posagging(){
+        return "postagging";
+    }
+
+    @RequestMapping(value = "/probabilitymodel")
+    public String probabilityModel(){
+        return "probabilitymodel";
+    }
+
+    @RequestMapping(value = "/vectorspacemodel")
+    public String vectorSpaceModel(){
+        return "vectorspacemodel";
+    }
+
 }

@@ -111,7 +111,7 @@ $(function() {
 					JSONresults = JSONdata.JSONdata;
 					$.each(JSONresults,function(index,obj) {
 						for (key in obj){ //解析出得到的文档名key 和原文contents
-							var contents = obj[key];
+							//var contents = obj[key];
 							//aconsole.log(contents)
 							//alert(key+"-->"+contents);
 							//$('#results4').append("<a href='' onclick="+viewContents(contents)+">"+key+"</a>");
@@ -196,8 +196,8 @@ $(function() {//倒排索引
           $(".ra").attr("style","font-size:18px; color:white");
           $(this).attr("style","font-size:20px; color:#C0C0C0");
   		$.each(JSONresults,function(index,obj) {
-  		    console.log("到这里没有");
-  		    console.log(obj[fileName]);
+  		    //console.log("到这里没有");
+  		    //console.log(obj[fileName]);
 			for (key in obj){
 				var contents = obj[fileName];
 				if(fileName==key){

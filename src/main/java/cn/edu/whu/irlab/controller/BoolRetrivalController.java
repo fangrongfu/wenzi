@@ -41,8 +41,8 @@ public class BoolRetrivalController {
     @RequestMapping(value = "/getFileNames")
     @ResponseBody
     public ModelMap getFileNamesController() throws FileNotFoundException {
-        System.out.println("hello world");
-        System.out.println("getFileNames");
+        //System.out.println("hello world");
+        //System.out.println("getFileNames");
         //springboot获取resource下的文件的路径的方法
         String docDir = ResourceUtils.getFile("classpath:dataset").getPath();
         //第二种获取路径的方法
@@ -50,7 +50,7 @@ public class BoolRetrivalController {
         Document document = new Document();
         ArrayList<String> fileNames = document.getFileNames(docDir);
         JSONArray jsonArray =JSONArray.fromObject(fileNames);
-        System.out.println(jsonArray);
+        //System.out.println(jsonArray);
         ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("fileNames",jsonArray);
         return modelMap;
@@ -59,8 +59,8 @@ public class BoolRetrivalController {
     @RequestMapping(value = "/buildIndex")
     @ResponseBody
     public ModelMap indexController() throws FileNotFoundException {
-        System.out.println("hello world");
-        System.out.println("buildIndex");
+        //System.out.println("hello world");
+        //System.out.println("buildIndex");
         ModelMap modelMap = new ModelMap();
         BoolRetrivalModel br = new BoolRetrivalModel();
         Document document = new Document();
@@ -82,8 +82,8 @@ public class BoolRetrivalController {
     @RequestMapping(value = "/removePun")
     @ResponseBody
     public ModelMap removePunController(@RequestParam(name = "fileName") String fileName) throws FileNotFoundException {
-        System.out.println("hello world");
-        System.out.println("removePun");
+        //System.out.println("hello world");
+        //System.out.println("removePun");
         ModelMap modelMap = new ModelMap();
         boolean isChinese = true;
         Document document = new Document();
@@ -93,7 +93,7 @@ public class BoolRetrivalController {
         String dataDir = ResourceUtils.getFile("classpath:dataset").getPath();
         document.fetchDocuments(dataDir, isChinese,initDir);
         String noPunSegments = document.getNoPunSegments().get(fileName);
-        System.out.println("noPunSegments=="+noPunSegments);
+        //System.out.println("noPunSegments=="+noPunSegments);
         modelMap.addAttribute("noPunSegments",noPunSegments);
         return modelMap;
     }
@@ -101,15 +101,15 @@ public class BoolRetrivalController {
     @RequestMapping(value = "/removeTxtFile")
     @ResponseBody
     public ModelMap removeTxtFileController(@RequestParam(name = "fileContents") String contents) throws FileNotFoundException {
-        System.out.println("hello world");
-        System.out.println("removeTxtFile");
+        //System.out.println("hello world");
+        //System.out.println("removeTxtFile");
         ModelMap modelMap = new ModelMap();
         //String contents = req.getParameter("fileContents");
-        System.out.println(contents);
+        //System.out.println(contents);
         String initDir = ResourceUtils.getFile("classpath:lib").getPath();
         NLPIR.init(initDir);
         String removeResult = NLPIR.paragraphProcess(contents.toString(),0).replaceAll("\\pP", "");
-        System.out.println("removeResult=="+removeResult);
+        //System.out.println("removeResult=="+removeResult);
         modelMap.addAttribute("removeResult",removeResult);
         return modelMap;
     }
@@ -117,10 +117,10 @@ public class BoolRetrivalController {
     @RequestMapping(value = "/boolRetrival")
     @ResponseBody
     public ModelMap retrivalController(@RequestParam(name = "terms",defaultValue = "") String[] terms,@RequestParam(name = "operators", defaultValue = "") String[] operators) {
-        System.out.println("hello world");
-        System.out.println("boolRetrival");
+        //System.out.println("hello world");
+        //System.out.println("boolRetrival");
         ModelMap modelMap = new ModelMap();
-        System.out.println("进入IndexController!");
+        //System.out.println("进入IndexController!");
         //resp.setContentType("text/text;charset=utf-8");
         //String docDir = "D:\\eclipse-workspace\\BooleanRetrival\\dataset";
         //String dataDir = this.getServletContext().getRealPath("/dataset");
@@ -179,8 +179,8 @@ public class BoolRetrivalController {
     @RequestMapping(value = "/segment")
     @ResponseBody
     public ModelMap segmentController (@RequestParam(name = "fileName",defaultValue = "") String fileName) throws FileNotFoundException {
-        System.out.println("hello world");
-        System.out.println("segment");
+        //System.out.println("hello world");
+        //System.out.println("segment");
         ModelMap modelMap = new ModelMap();
         boolean isChinese = true;
         Document document = new Document();
@@ -190,7 +190,7 @@ public class BoolRetrivalController {
         String dataDir = ResourceUtils.getFile("classpath:dataset").getPath();
         document.fetchDocuments(dataDir, isChinese,initDir);
         String segments = document.getSegments().get(fileName);
-        System.out.println("segments=="+segments);
+        //System.out.println("segments=="+segments);
         modelMap.addAttribute("segments",segments);
         return modelMap;
     }
@@ -198,14 +198,14 @@ public class BoolRetrivalController {
     @RequestMapping(value = "/splitTxtFile")
     @ResponseBody
     public ModelMap splitTxtFileController (@RequestParam(name = "fileContents",defaultValue = "") String contents) throws FileNotFoundException {
-        System.out.println("hello world");
-        System.out.println("splitTxtFile");
+        //System.out.println("hello world");
+        //System.out.println("splitTxtFile");
         ModelMap modelMap = new ModelMap();
         System.out.println(contents);
         String initDir = ResourceUtils.getFile("classpath:lib").getPath();
         NLPIR.init(initDir);
         String splitResult = NLPIR.paragraphProcess(contents.toString(),0);
-        System.out.println("splitResult=="+splitResult);
+        //System.out.println("splitResult=="+splitResult);
         modelMap.addAttribute("splitResult",splitResult);
         return modelMap;
     }

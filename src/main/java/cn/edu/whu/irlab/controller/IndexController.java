@@ -47,9 +47,54 @@ public class IndexController {
         return "probabilitymodel";
     }
 
-    @RequestMapping(value = "/vectorspacemodel")
-    public String vectorSpaceModel(){
-        return "vectorspacemodel";
+    @RequestMapping(value = "/IRLab_index")
+    public String index(){
+        return "IRLab_index";
     }
+
+    @RequestMapping(value = "/IRLab_Chinese")
+    public String chinese(){
+        return "IRLab_Chinese";
+    }
+
+    @RequestMapping(value = "/IRLab_English")
+    public String english(){
+        return "IRLab_English";
+    }
+    @RequestMapping(value = "/IRLab_participle")
+    public String participle(){
+        return "IRLab_participle";
+    }
+
+    @RequestMapping(value = "/IRLab_post")
+    public String postModel(){
+        return "IRLab_post";
+    }
+
+    @RequestMapping(value = "/IRLab_ione")
+    public String ioneModel(){
+        return "IRLab_ione";
+    }
+
+    @RequestMapping(value = "/IRLab_br")
+    public String brModel(){
+        return "IRLab_br";
+    }
+
+    @RequestMapping(value = "/IRLab_lm")
+    public String lmModel(){
+        return "IRLab_lm";
+    }
+
+    @RequestMapping(value = "/IRLab_pm")
+    public String pmModel(){
+        return "IRLab_pm";
+    }
+
+    @RequestMapping(value = "/IRLab_vsm")
+    public String vsmModel(){
+        return "IRLab_vsm";
+    }
+
 
 }

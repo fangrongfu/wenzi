@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8" />
+	<title>英文预处理</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="jquery-2.1.1/jquery.min.js" type="text/javascript"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript"></script>
+ 	<style type="text/css">
+     a:link{color:white; } /* 无效？？？ */
+ 	   a:visited{color:Silver; }
+   	 a:hover{color: black;}
+  	 a:active{color: Silver;}
+  	 
+  	 h1{
+  		text-align:center; 
+  	 	font-size: 90px;
+  	 	color: white;
+  	 }
+  	 h2{
+  		text-align:center;
+  	 	font-size: 30px;
+  	 	color: white;
+  	 } 
+  	 h3{
+  	 	color: white;
+  	 }
+  	 h4{
+  	 	color: white;
+  	 }
+  	 nav{
+  	 	font-size: 15px;
+  	 }
+  	 label{
+  	 	color:white;
+  	 	font-size: 18px;
+  	 }
+  	 #results{
+  	 	overflow:auto; 
+  	 	margin-top:10px;
+  	 	margin-left:1px;
+  	 	position:related;
+  	 	width:100%; 
+  	 	height:100%;
+  	 	background-color: rgba(255,255,255,0.6); 
+  	 	border-radius:5px;
+  	 }
+  	 .list-group-item{
+  	 	background-color: MintCream;
+  	 } 
+	</style>
+</head>
+	 <body>
+	<div id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1"> 
+		<img src="images/bg8.jpg" width="100%" height="100%"/> 
+	</div>
+	<nav class="navbar navbar-inverse">
+		<!-- <div class="container" style="margin-left: 200px"> -->
+		<div class="row" style="margin-left: 200px">
+			<ul class="nav nav-pills">
+				<li role="presentation"
+					style="margin-right: 50px; width: 500px; height: 50px"><img
+						src="images/IRLablogo.png" alt=""
+						style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
+						style="color: rgb(255, 255, 255); font-size: 20px">IRLab信息检索与自然语言处理可视化实验平台</span>
+				</li>
+				<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
+				<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
+						预处理<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
+					</ul>
+				</li>
+				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						检索模型<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+					</ul>
+				</li>
+				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						深度学习<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
+					</ul>
+				</li>
+				<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="row" style="margin-top: 30px;">
+		<div class="col-md-2 col-md-offset-2" style="margin-top: 60px">
+			<h4>实验文档集列表：</h4>
+			<div class="list-group" >
+  				<a href="#" class="list-group-item">文档1</a>
+  				<a href="#" class="list-group-item">文档1</a>
+ 				<a href="#" class="list-group-item">文档1</a>
+ 				<a href="#" class="list-group-item">文档1</a>
+ 				<a href="#" class="list-group-item">文档1</a>
+			</div>
+		</div>
+		
+  		<div class="col-md-5" style="margin-left:145px">
+  			<h3 style="text-align:center;">英文预处理</h3>
+  			<ul class="nav nav-tabs">
+  				<li role="presentation" class="active"><a href="#" style="font-size: 15px;">预处理</a></li>
+  				<li role="presentation"><a href="#" style="font-size: 15px;">去停用词</a></li>
+          <li role="presentation"><a href="#" style="font-size: 15px;">词组识别</a></li>
+          <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"style="font-size: 15px;">
+            词干提取<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" style="font-size: 15px;">
+              <li role="presentation"><a href="#">Porter</a></li>
+              <li role="presentation"><a href="#">Lovins</a></li>
+              </ul>
+          </li>
+  				<li role="presentation" class="dropdown">
+    				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"style="font-size: 15px;">
+     				建立索引<span class="caret"></span>
+   					</a>
+   					<ul class="dropdown-menu" style="font-size: 15px;">
+						<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+   				    </ul>
+  				</li>
+			</ul>
+			<div class="row col-md-6 pre-scrollable" id="results" >
+					该div为带滚动条的div<br>
+					原 标题 ： 2018年 7月 27日 外交部 发言人 耿爽 主持 例行 记者会 应 马来西亚 外长 赛夫丁 、 新加坡 外长 维文 邀请 ， 王毅 国务委员 兼 外交部长 将 于 7月 31日 至 8月 5日 访问 马来西亚 、 新加坡 ， 并 出席 在 新加坡 举行 的 中国 ― 东盟 （ 10+1 ） 外长 会 、 东盟 与 中 日 韩 （ 10+3 ） 外长 会 、 东亚 峰会 （ EAS ） 外长 会 和 东盟 地区 论坛 （ ARF ） 外长 会 。 问 ： 金 砖 国家 领导人 第十 次 会晤 昨天 在 南非 举行 ， 并 发表 了 《 金 砖 国家 领导人 约翰内斯堡 宣言 》 。 中方 对 此 次 会晤 有 何 评价 ？ 能否 介绍 会晤 取得 了 哪些 成果 ？ 答 ： 金 砖 国家 领导人 约翰内斯堡 会晤 是 金 砖 合作 开启 第二 个 “ 金色 十 年 ” 后 的 首 次 峰会 。 在 国际 形势 充满 不 稳定 和 不 确定性 的 背景 下 ， 广大 发展中国家 和 新兴 市场 国家 都 强烈 希望 能 进一步 加强 沟通 协调 ， 共同 应 对 风险 ， 寻求 互利 共 赢 。 作为 发展中国家 和 新兴 市场 国家 的 代表 ， 金 砖 国家 在 此 次 会晤 上 就 维护 多边 主义 、 反对 单边 主义 和 保护主义 发出 了 明确 信号 ， 展现 出 广大 发展中国家 和 新兴 市场 国家 加强 团结 、 共 克 时艰 的 向心力 和 凝聚力 。 习近平 主席 在 发言 中 强调 ， 要 坚定 维护 基于 规则 的 多边 贸易 体制 ， 推动 贸易 和 投资 自由化 便利 化 ， 旗帜鲜明 反对 保护主义 。 南非 总统 拉马福萨 、 巴西 总统 特梅尔 、 俄罗斯 总统 普京 、 印度 总理 莫迪 等 领导人 都 认为 ， 面对 当前 复杂 多变 的 国际 环境 ， 金 砖 国家 应 加强 合作 ， 维护 多边 主义 和 国际 规则 ， 促进 自由 贸易 ， 维护 世界 贸易 组织 规则 。 会晤 发表 的 《 金 砖 国家 领导人 约翰内斯堡 宣言 》 ， 强调 建设 开放型 世界 经济 的 重要性 ， 重申 以 世贸组织 为 代表 、 以 规则 为 基础 、 透明 、 非 歧视 、 开放 、 包容 的 多边 贸易 体制 的 核心 地位 ， 呼吁 所有 成员 遵守 世贸组织 规则 ， 信守 在 多边 贸易 体制 中 的 承诺 。 作为 最 大 的 发展中国家 和 新兴 市场 国家 ， 中方 将 继续 积极 参与 金 砖 合作 ， 同 其他 成员 一道 推动 经济 全球化 朝着 更加 开放 、 包容 、 普惠 、 平衡 、 共 赢 的 方向 发展 ， 努力 为 发展中国家 和 新兴 市场 国家 共同 发展 创造 更 大 机遇 。 问 ： 关于 柬埔寨 大选 ， 中方 是否 支持 洪森 再次 当选 ？ 有人 批评 中国 称 ， 中方 在 直至 29日 的 整个 选举 过程 中 都 给予 洪森 过度 支持 。 中方 对 此 有 何 回应 ？ 答 ： 柬埔寨 国会 选举 将 于 29日 进行 投票 ， 这 是 柬埔寨 的 内政 ， 也 是 柬埔寨 人民 政治 生活 中 的 大事 。 中方 支持 柬埔寨 人民 自主 选择 符合 本国 国情 的 发展 道路 ， 支持 并 预祝 大选 顺利 举行 。 我们 也 希望 国际 社会 为 柬埔寨 人民 顺利 举行 选举 、 推动 国家 继续 稳定 发展 发挥 建设性 作用 。 问 ： 请 介绍 王毅 国务委员 兼 外交部长 访问 马来西亚 、 新加坡 有关 情况 和 当前 中 马 、 中新 关系 。 答 ： 王毅 国务委员 兼 外交部长 将 于 7月 31日 至 8月 1日 访问 马来西亚 ， 8月 1日 至 5日 访问 新加坡 并 出席 在 新加坡 举行 的 东亚 合作 系列 外长 会 。 访 马 期间 ， 王毅 国务委员 将 会见 马哈蒂尔 总理 ， 同 赛夫丁 外长 举行 会谈 。 访 新 期间 ， 王毅 国务委员 将 会见 哈莉玛 总统 和 李显龙 总理 ， 同维文 外长 举行 会谈 。 马来西亚 和 新加坡 都 是 东盟 重要 成员 ， 也 是 中国 的 友好 邻邦 和 重要 合作 伙伴 。 中 马 、 中新 双边 关系 一直 发展 得 很 好 ， 给 两 国 和 两 国 人民 带来 实实在在 的 利益 。 马新 政府 成立 后 ， 两 国 积极 接续 友谊 与 合作 。 马哈蒂尔 总理 重视 对 华 关系 ， 支持 “ 一 带 一 路 ” 倡议 ， 上周 派 特使 访华 ， 李克强 总理 、 王毅 国务委员 同 特使 就 两 国 关系 发展 交换 了 意见 。 王毅 国务委员 此 访 将 传达 中方 重视 中 马 友好 的 真诚 意愿 ， 同 马方 探讨 推动 两 国 关系 发展 的 思路 和 举措 ， 并 就 双方 合作 和 共同 关心 的 地区 国际 问题 交换 意见 。 中新 两 国 建立 了 与 时 俱 进 的 全方位 合作 伙伴 关系 ， 在 “ 一 带 一 路 ” 框架 下 的 合作 富有 成效 。 新加坡 现任 东盟 轮值 主席国 ， 兼任 中国 ― 东盟 关系 协调 国 。 今年 4月 ， 李显龙 总理 来华 出席 博鳌 亚洲 论坛 2018年 会 并 访华 ， 中国 领导人 同 他 就 发展 双边 关系 、 推进 区域 合作 达成 重要 共识 。 王毅 国务委员 此 访 旨在 落实 两 国 领导人 重要 共识 ， 加强 战略 沟通 ， 深化 务实 合作 ， 将 重点 就 中新 关系 、 “ 一 带 一 路 ” 合作 、 中国 ― 东盟 关系 以及 其他 共同 关心 的 地区 国际 问题 同 新 方 深入 交换 意见 。 问 ： 据 报道 ， 7月 26日 ， 巴基斯坦 正义 运动 党 领导人 伊 姆 兰 ・汗 宣布 赢得 国民 议会 大选 。 伊 姆 兰 ・汗 在 发表 电视 讲话 时 高度 评价 中 巴 关系 ， 强调 新 政府 将 进一步 发展 对 华 友好 交往 与 合作 ， 坚持 推进 中 巴 经济 走廊 建设 ， 努力 学习 借鉴 中国 反 腐 和 减 贫 先进 经验 。 中方 对 此 有 何 评论 ？ 对 中 巴 关系 未来 发展 有 何 期待 ？ 答 ： 我们 密切 关注 巴基斯坦 正在 进行 的 大选 ， 真诚 希望 巴基斯坦 顺利 完成 政治 过渡 ， 保持 稳定 ， 实现 更 好 发展 。 
+			</div>
+  		</div>
+  		
+	</div>
+	
+
+	</body>
+</html>

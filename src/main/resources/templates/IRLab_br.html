@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8" />
+	<title>布尔检索模型</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="jquery-2.1.1/jquery.min.js" type="text/javascript"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript"></script>
+ 	<style type="text/css">
+     a:link{color:white } /* 无效？？？ */
+ 	 a:visited{color:Silver }
+   	 a:hover{color: black}
+  	 a:active{color: Silver}
+  	 
+  	 h1{
+  		text-align:center; 
+  	 	font-size: 90px;
+  	 	color: white;
+  	 }
+  	 h2{
+  		text-align:center;
+  	 	font-size: 30px;
+  	 	color: white;
+  	 } 
+  	 h3{
+  	 	color: white;
+  	 }
+  	 h4{
+  	 	color: white;
+  	 }
+  	 nav{
+  	 	font-size: 15px;
+  	 }
+  	 label{
+  	 	color:white;
+  	 	font-size: 18px;
+  	 }
+  	 #results{
+  	 overflow:auto;
+  	 margin-left:1px;
+  	 width:700px;
+  	 height:200px;
+  	 background-color: rgba(255,255,255,0.5); 
+  	 border-radius:5px;
+  	 } 
+  	 
+  	 #contents{
+  	 	margin-left:1px; 
+  	 	margin-top: 10px; 
+  	 	overflow:auto;
+  	 	width:700px; 
+  	 	height:300px; 
+  	 	background-color: rgba(255,255,255,0.5); 
+  	 	border-radius:5px;
+  	 	font-size: 15px; 
+  	 }
+	</style>
+</head>
+	 <body>
+	<div id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1"> 
+	<img src="images/bg8.jpg" width="100%" height="100%"/> 
+	</div>  
+	<nav class="navbar navbar-inverse">
+		<!-- <div class="container" style="margin-left: 200px"> -->
+		<div class="row" style="margin-left: 200px">
+			<ul class="nav nav-pills">
+				<li role="presentation"
+						style="margin-right: 50px; width: 500px; height: 50px"><img
+						src="images/IRLablogo.png" alt=""
+						style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
+						style="color: rgb(255, 255, 255); font-size: 20px">IRLab信息检索与自然语言处理可视化实验平台</span>
+				</li>
+				<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
+  				<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
+    				<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
+     					 预处理<span class="caret"></span>
+   					</a>
+    				<ul class="dropdown-menu">
+    					 <li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
+    	 				 <li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
+   					</ul>
+  				</li>
+  				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+    				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+     					 检索模型<span class="caret"></span>
+   					</a>
+    				<ul class="dropdown-menu">
+    					<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
+    	 				 <li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+    	 				 <li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
+    	 				 <li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+   					</ul>
+  				</li>
+  				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+    				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+     					 深度学习<span class="caret"></span>
+   					</a>
+    				<ul class="dropdown-menu">
+    					 <li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
+    	 				 <li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
+    	 				 <li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
+   					</ul>
+  				</li>
+    			<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
+			</ul>
+     	</div>
+	</nav>
+	<div class="container">
+		
+		<div class="row" style="margin-top: 20px">
+			<div class="col-md-3 col-md-offset-4" >
+				<h2>布尔检索模型</h2>
+			</div>
+		</div>
+		<div class="row" id="expressionTitle" style="margin-top: 50px; margin-left: 30px ">
+			<div class="col-md-3 col-md-offset-2" >
+				<h4>请输入检索条件：</h4>
+			</div>
+		</div>
+
+		<div id="expression">
+			<div class="row" style=" margin-left: 30px ">
+				<div class="col-md-10 col-md-offset-2">
+					<form class="form-inline">
+						<div class="form-group">
+							<button name="add" type="button" class="btn btn-default"
+								onclick="addRow()">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+							<button name="clear" type="button" class="btn btn-default" onclick="removeRow()">
+								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							</button>
+							<input name="term" type="text" class="form-control"
+								placeholder="检索词">
+						</div>
+						<div class="form-group">
+								<select name="operator" class="form-control">
+									<option>and</option>
+									<option>or</option>
+									<option>not</option>
+								</select>
+						</div>
+						<div class="form-group">
+							<input name="term" type="text" class="form-control"
+								placeholder="检索词">
+						</div>
+						
+					</form>
+				</div>
+			</div>
+
+							
+			<div class="row" name="1" style="margin-top: 10px;margin-left: 30px">
+				<div class="col-md-10 col-md-offset-2">
+					<form class="form-inline">
+						<div class="form-group">
+								<select name="operator" class="form-control">
+									<option>and</option>
+									<option>or</option>
+									<option>not</option>
+								</select>
+						</div>
+						<div class="form-group">
+							<input name="term" type="text" class="form-control"
+								placeholder="检索词">
+						</div>
+						<div class="form-group">
+								<select name="operator" class="form-control">
+									<option>and</option>
+									<option>or</option>
+									<option>not</option>
+								</select>
+						</div>
+						<div class="form-group">
+							<input name="term" type="text" class="form-control"
+								placeholder="检索词">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" id="submitRow" style="margin-top: 20px">
+			<div class="col-md-2 col-md-offset-7">
+				<form class="form-inline">
+					<button id="search" type="button" class="btn btn-default" style="margin-left: 45px ">检索</button>
+				</form>
+			</div>
+		</div>
+  		
+				<div class="row" id="resutlRow" style="margin-left: 30px" >
+		<div class="col-md-10 col-md-offset-2" >
+			<h4>检索结果：</h4>
+			<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;">
+			<!--<div class="col-md-10 row pre-scrollable" id="results">-->
+				
+			</div>
+  			<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
+  			<!--<div class="col-md-10 row pre-scrollable" id="contents" hidden="hidden">
+  				这个div被隐藏，在需要查看结果文档内容时动态显示
+  			</div> -->
+		</div>
+	</div>
+	</div>
+	</body>
+<script type="text/javascript">
+    $(function() {
+        //检索 button
+        $("#search").click(function() {
+            //var filePath = $("#filePath").val();//文档路径
+            //alert(filePath);
+            var terms = new Array(); //提交的检索词
+            var operators = new Array();//提交的逻辑运算符
+            var boolExpr = "";//提交的检索表达式（以上两者构成）
+
+            var input_arr = document.getElementsByName("term");
+            var select_arr = document.getElementsByName("operator");
+
+            for(i=0;i<input_arr.length;i++){
+                var term = input_arr[i].value;
+                if(""!=term){
+                    //alert(term);
+                    terms[i]= term;
+                }
+            }
+            for(i=0;i<terms.length-1;i++){
+                var x = select_arr[i];
+                operators[i] =x.options[x.selectedIndex].value;
+                //alert(operators[i]);
+                boolExpr += terms[i]+operators[i];
+            }
+            boolExpr += terms[terms.length-1];
+
+
+            if(0 == terms.length){ //没有检索词不能提交
+                alert("请输入检索词！");
+                $("#results").text("");// 清空数据
+                return;
+            }
+            if(input_arr[0].value==""){ //第一个检索词为空不能提交
+                alert("第一个检索词不能为空！");
+                $("#results").text("");// 清空数据
+                return;
+            }
+            $("#boolExpr").text("您提交的检索式为："+boolExpr);
+            $.ajax({
+                type:"POST",
+                url:"/bool/boolRetrival",
+                data:{"terms":terms,"operators":operators},
+                traditional: true,
+                datatype:"json",
+                contentType:"application/x-www-form-urlencoded; charset=utf-8",
+                success:function(JSONdata){
+                    if(0==JSONdata.JSONdata){
+                        alert("抱歉！没有满足条件的检索结果！");
+                        $("#results").text("");// 清空数据
+                    }else{
+                        $("#results").text("");// 清空数据
+                        JSONresults = JSONdata.JSONdata;
+                        $.each(JSONresults,function(index,obj) {
+                            for (key in obj){ //解析出得到的文档名key 和原文contents
+                                //var contents = obj[key];
+                                //aconsole.log(contents)
+                                //alert(key+"-->"+contents);
+                                //$('#results4').append("<a href='' onclick="+viewContents(contents)+">"+key+"</a>");
+                                //$('#results4').append("<a href='#' class='ra'>"+key+"</a>");
+                                //$('#results4').append("<br>");
+                                $('#results').append("<a id='"+key+"' href='#' class='ra' style='color:white; font-size: 18px'>"+key+"</a>");
+                                $('#results').append("<br>");
+                            }
+                        });
+                    }
+                },
+                error:function(){
+                    alert("检索出错！");
+                    $("#results").text("");// 清空数据
+                }
+            });
+        });
+    });
+
+    //动态元素<a>添加的事件 查看文档的内容
+    $(function() {//这里是动态元素<a>添加的事件 查看文档的内容
+        $("body").on("click", ".ra", function() {
+            //alert('这里是动态元素添加的事件');
+            var fileName =$(this).attr("id");
+            $(".ra").attr("style","font-size:18px; color:white");
+            $(this).attr("style","font-size:20px; color:#C0C0C0");
+            $.each(JSONresults,function(index,obj) {
+                //console.log("到这里没有");
+                //console.log(obj[fileName]);
+                for (key in obj){
+                    var contents = obj[fileName];
+                    if(fileName==key){
+                        console.log(contents);
+                        //$("#contents").empty();
+                        //$("#contents").html(fileName+": <br>"+contents);
+                        $('#results').text("");// 清空数据
+                        $('#results').append("<p style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                        $("p").append(contents);
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function addRow(){
+        var fatherDiv = document.getElementById("expression");
+        //alert(fatherDiv.getAttribute("id"));
+
+        var div_row = document.createElement("div");
+        div_row.setAttribute("class", "row");
+        div_row.setAttribute("style","margin-top: 10px");
+        div_row.setAttribute("style","margin-left: 30px");
+        div_row.setAttribute("name","newrow");
+
+        var div_col = document.createElement("div");
+        div_col.setAttribute("class","col-md-10 col-md-offset-2");
+
+        var form = document.createElement("form");
+        form.setAttribute("class","form-inline");
+
+        var div1 = document.createElement("div");
+        div1.setAttribute("class","form-group");
+        var select1 = document.createElement("select");
+        select1.setAttribute("class","form-control");
+        select1.setAttribute("name","operator");
+        select1.add(new Option("and","and"));
+        select1.add(new Option("or","or"));
+        select1.add(new Option("not","not"));
+
+        var div2 = document.createElement("div");
+        div2.setAttribute("class","form-group");
+        div2.setAttribute("style","margin-left:4px");
+        var input1 = document.createElement("input");
+        input1.setAttribute("class","form-control");
+        input1.setAttribute("name","term");
+        input1.setAttribute("type","text");
+        input1.setAttribute("placeholder","检索词");
+
+        var div3 = document.createElement("div");
+        div3.setAttribute("class","form-group");
+        div3.setAttribute("style","margin-left:4px");
+        var select2 = document.createElement("select");
+        select2.setAttribute("class","form-control");
+        select2.setAttribute("name","operator");
+        select2.add(new Option("and","and"));
+        select2.add(new Option("or","or"));
+        select2.add(new Option("not","not"));
+
+        var div4 = document.createElement("div");
+        div4.setAttribute("class","form-group");
+        div4.setAttribute("style","margin-left:4px");
+        var input2 = document.createElement("input");
+        input2.setAttribute("class","form-control");
+        input2.setAttribute("name","term");
+        input2.setAttribute("type","text");
+        input2.setAttribute("placeholder","检索词");
+
+        div1.appendChild(select1);
+        div2.appendChild(input1);
+        div3.appendChild(select2);
+        div4.appendChild(input2);
+
+        form.appendChild(div1);
+        form.appendChild(div2);
+        form.appendChild(div3);
+        form.appendChild(div4);
+
+        div_col.appendChild(form);
+        div_row.appendChild(div_col);
+        fatherDiv.appendChild(div_row);
+
+        var a = document.createElement("a");
+        a.setAttribute("text","aaaa");
+        a.setAttribute("onclick", "viewContents("+contents+")");
+        fatherDiv.html("<a>asdgjg</a>");
+    }
+
+    function removeRow(){
+        var rows = document.getElementsByName("newrow");
+        var delNum = rows.length-1;
+        var delRow = rows[delNum];
+        var button = document.getElementsByName("clear");
+        if(delNum<0){
+            button.disabled=true;
+        }else{
+            delRow.remove();
+        }
+    }
+</script>
+</html>

@@ -26,6 +26,11 @@ label{
     color:white;
     font-size: 18px;
 }
+.row{
+    margin-right: 0px;
+    margin-left: 15px;
+}
+
 #results{
     overflow:auto;
     margin-left:1px;

@@ -124,7 +124,7 @@
 			<div class="row" style="margin-left: 70px">
 				<div class="col-md-6 col-md-offset-2">
    					<div class="input-group">
-      					<input name="term" type="text" class="form-control" placeholder="Search for...">
+      					<input id="postag" name="term" type="text" class="form-control" placeholder="Search for...">
      					<span class="input-group-btn">
         					<button id="search" class="btn btn-default" type="button">检索</button>
       					</span>
@@ -138,11 +138,7 @@
 		<div class="col-md-10 col-md-offset-2" >
 			<h4>检索结果：</h4>
 			<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
-			<div class="col-md-10 row pre-scrollable" id="results" >	
-				该div用于展示结果文档名<br>
-				<a href="IRLab_Chinese.html">1.txt</a>
-				<br>2.txt<br>3.txt<br>4.txt<br>5.txt<br>6.txt<br>7.txt<br>8.txt<br>
-				1.txt<br>2.txt<br>3.txt<br>4.txt<br>5.txt<br>6.txt<br>7.txt<br>8.txt<br>
+			<div class="col-md-10 row pre-scrollable" id="results" >
 				
 			</div>
   			<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
@@ -152,6 +148,30 @@
 		</div>
 	</div>
 	</div>
-	
 	</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search").click(function(){
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/POSTagging/",
+                data: JSON.stringify({
+                    content: $("#postag").val(),
+                }),
+                contentType: 'application/json',
+                dataType: "json",
+                success: function(data){
+                    if (data.success) {
+                        $("#results").html(data.msg);
+                    } else {
+                        $("#results").html("出现错误：" + data.msg);
+                    }
+                },
+                error: function(jqXHR){
+                    alert("发生错误：" + jqXHR.status);
+                },
+            });
+        });
+    });
+</script>
 </html>

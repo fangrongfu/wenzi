@@ -5,52 +5,10 @@
 	<title>中文预处理</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script src="jquery-2.1.1/jquery.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
- 	<style type="text/css">
-     a:link{color:white; } /* 无效？？？ */
- 	   a:visited{color:Silver; }
-   	 a:hover{color: black;}
-  	 a:active{color: Silver;}
-  	 
-  	 h1{
-  		text-align:center; 
-  	 	font-size: 90px;
-  	 	color: white;
-  	 }
-  	 h2{
-  		text-align:center;
-  	 	font-size: 30px;
-  	 	color: white;
-  	 } 
-  	 h3{
-  	 	color: white;
-  	 }
-  	 h4{
-  	 	color: white;
-  	 }
-  	 nav{
-  	 	font-size: 15px;
-  	 }
-  	 label{
-  	 	color:white;
-  	 	font-size: 18px;
-  	 }
-  #results{
-  	 	overflow:auto; 
-  	 	margin-top:10px;
-  	 	margin-left:1px;
-  	 	position:related;
-  	 	width:100%; 
-  	 	height:100%;
-  	 	background-color: rgba(255,255,255,0.6); 
-  	 	border-radius:5px;
-  	 }
-  	 .list-group-item{
-  	 	/* color: black; */
-  	 	background-color: MintCream;
-  	 } 
-	</style>
+
 </head>
 	 <body>
 	<div id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1"> 
@@ -134,7 +92,45 @@
   		</div>
 	</div>
 	</div>
-	</body>
+	<div class="footer">
+		<div class="container">
+			<div class="row footer-top">
+				<div class="col-sm-6 col-lg-6">
+					<h4>武汉大学信息管理学院</h4>
+					<p>信息检索与知识挖掘研究所</p>
+					<p><span class="glyphicon glyphicon-map-marker"></span>湖北省武汉市武昌区珞珈山武汉大学信息管理学院611室</p>
+				</div>
+				<div class="col-sm-6  col-lg-5 col-lg-offset-1">
+					<div class="row about">
+						<div class="col-xs-3">
+							<h4>机构简介</h4>
+							<ul class="list-unstyled">
+								<li>
+									<a style='color:#fff' href="http://ir.whu.edu.cn/"><span class="glyphicon glyphicon-link"></span>&nbsp关于我们</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-xs-9">
+							<h4>联系方式</h4>
+							<ul class="list-unstyled">
+								<li>
+									<span class="glyphicon glyphicon-envelope">&nbsp电子邮件:weilu@whu.edu.cn</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<hr>
+			<div class="row footer-bottom">
+				<ul class="list-inline text-center">
+					<li>Copyright &copy;2018. 武汉大学信息检索与知识挖掘研究所  All Rights Reserved.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	 </body>
 <script type="text/javascript">
 	//文件名的全局变量
 	var filename;
@@ -157,8 +153,8 @@
                     //	alert(segments);
                     segments = segments.segments;
                     $('#results').text("");// 清空数据
-                    $('#results').append("<p style='color: rgb(255, 255, 255); font-size: 18px'></p>");
-                    $("p").append(segments);
+                    $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                    $("#p").append(segments);
                     //	alert("分词成功！");
                 },
                 error:function(){
@@ -183,8 +179,8 @@
                     //		alert(noPunSegments);
                     noPunSegments = noPunSegments.noPunSegments;
                     $('#results').text("");// 清空数据
-                    $('#results').append("<p style='color: rgb(255, 255, 255); font-size: 18px'></p>");
-                    $("p").append(noPunSegments);
+                    $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                    $("#p").append(noPunSegments);
                     //		alert("去标点成功！");
                 },
                 error:function(){
@@ -214,7 +210,7 @@
                     for (key in obj){ //解析出得到的文档名key 和原文contents
                         var posting = obj[key];
                         //alert(key+"-->"+posting);
-                        $("p").append(key+" ---> ["+posting+"]<br>");
+                        $("#p").append(key+" ---> ["+posting+"]<br>");
                         //$("p").append("<br>");
                     }
                 });

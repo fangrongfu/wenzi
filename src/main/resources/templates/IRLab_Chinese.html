@@ -204,7 +204,7 @@
                 //alert(invertedIndex);
                 //	alert(invertedIndex);
                 $('#results').text("");// 清空数据
-                $('#results').append("<p style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
                 $.each(invertedIndex,function(index,obj) {
                     for (key in obj){ //解析出得到的文档名key 和原文contents
                         var posting = obj[key];

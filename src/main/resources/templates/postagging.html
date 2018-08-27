@@ -110,9 +110,9 @@
                 dataType: "json",
                 success: function(data){
                     if (data.success) {
-                        $("#Result").html(data.msg);
+                        $("#Result").val(data.msg);
                     } else {
-                        $("#Result").html("出现错误：" + data.msg);
+                        $("#Result").val("出现错误：" + data.msg);
                     }
                 },
                 error: function(jqXHR){

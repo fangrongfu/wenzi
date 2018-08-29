@@ -59,9 +59,7 @@ public class LanguageModelController {
                 docIDs.append(", ");
             }
             docIDs.append(']'+"<br>");
-            //resp.getWriter().println(docIDs.toString());
         }
-        //System.out.println(docIDs.toString());
         return modelMap.addAttribute("results",docIDs);
     }
 

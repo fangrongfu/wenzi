@@ -8,7 +8,14 @@
 	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script src="jquery-2.1.1/jquery.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
-
+	<script src="jquery-2.1.1/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="jquery-2.1.1/messages_zh.js" type="text/javascript"></script>
+	<style>
+		.error{
+			color:red;
+			padding: 5px;
+		}
+	</style>
 </head>
 	<!--  <body style="background-image:url(images/bg8.jpg)"> -->
 	<body>
@@ -65,35 +72,29 @@
 				<h2>语言检索模型</h2>
 			</div>
 		</div>
-		<div class="row" id="expressionTitle" style="margin-top: 50px;margin-left: 70px">
-			<div class="col-md-3 col-md-offset-2" >
-				<h4>请输入想检索的内容：</h4>
-			</div>
-		</div>
-
-		<div id="expression">
 			<div class="row" style="margin-left: 70px">
 				<div class="col-md-6 col-md-offset-2">
-   					<div class="input-group">
-      					<input name="term" type="text" class="form-control" placeholder="Search for...">
-     					<span class="input-group-btn">
-        					<button id="search" class="btn btn-default" type="button">检索</button>
-      					</span>
-    				</div>
+					<form id="mainForm">
+						<div class="form-group">
+							<label for="exampleInputEmail1">请输入平滑系数λ(0≤λ≤1)</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" placeholder="平滑系数">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">请输入您想要检索的内容：</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1" placeholder="检索内容">
+								<span class="input-group-btn"><button class="btn btn-default btn-info" type="submit" id="search">检索</button></span>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
-
-							
-		</div>
 		<div class="row" id="resutlRow" style="margin-top: 30px;margin-left: 70px" >
 		<div class="col-md-10 col-md-offset-2" >
 			<h4>检索结果：</h4>
 			<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
 			<div class="col-md-10 row pre-scrollable" id="results" >	
-				该div用于展示结果文档名<br>
-				<a href="IRLab_Chinese.html">1.txt</a>
-				<br>2.txt<br>3.txt<br>4.txt<br>5.txt<br>6.txt<br>7.txt<br>8.txt<br>
-				1.txt<br>2.txt<br>3.txt<br>4.txt<br>5.txt<br>6.txt<br>7.txt<br>8.txt<br>
+
 				
 			</div>
   			<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
@@ -131,7 +132,6 @@
 							</ul>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<hr>
@@ -144,4 +144,61 @@
 	</div>
 
 	</body>
+
+<script type="text/javascript">
+    $.validator.setDefaults({
+        submitHandler: function() {
+            //alert("提交事件!");
+            var λ = $('#exampleInputEmail1').val();
+            var query = $('#exampleInputPassword1').val();
+            $.ajax({
+                type:"POST",
+                url:"/language/search",
+                data:{"λ":λ,"query":query},
+                traditional: true,
+                datatype:"json",
+                contentType:"application/x-www-form-urlencoded; charset=utf-8",
+                success:function(results){
+                    if(0==results.results){
+                        alert("抱歉！没有满足条件的检索结果！");
+                        $("#results").text("");// 清空数据
+                    }else{
+                        $("#results").text("");// 清空数据
+                        JSONresults = results.results;
+                        $.each(JSONresults,function(index,obj) {
+                            for (key in obj){ //解析出得到的文档名key 和原文contents
+                                $('#results').append("<a id='"+key+"' href='#' class='ra' style='color:white; font-size: 18px'>"+key+"</a>");
+                                $('#results').append("<br>");
+                            }
+                        });
+                    }
+                },
+                error:function(){
+                    alert("检索出错！");
+                    $("#results").text("");// 清空数据
+                }
+            });
+        }
+    });
+
+    $().ready(function() {
+        $("#mainForm").validate({
+            errorPlacement: function(error, element) {
+                // Append error within linked label
+                $( element )
+                    .closest( "form" )
+                    .find( "label[for='" + element.attr( "id" ) + "']" )
+                    .append( error );
+            },
+            errorElement: "span",
+            rules: {
+                exampleInputEmail1: {
+                    required: true,
+                    range: [0,1]
+                },
+                exampleInputPassword1: "required"
+            }
+        })
+    });
+</script>
 </html>

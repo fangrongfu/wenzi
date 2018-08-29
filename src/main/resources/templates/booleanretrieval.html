@@ -114,8 +114,8 @@ $(function() {
 							//var contents = obj[key];
 							//aconsole.log(contents)
 							//alert(key+"-->"+contents);
-							//$('#results4').append("<a href='' onclick="+viewContents(contents)+">"+key+"</a>");
-							//$('#results4').append("<a href='#' class='ra'>"+key+"</a>");
+							//$('#results4').append("<languagemodel href='' onclick="+viewContents(contents)+">"+key+"</languagemodel>");
+							//$('#results4').append("<languagemodel href='#' class='ra'>"+key+"</languagemodel>");
 							//$('#results4').append("<br>");
 							$('#results').append("<a id='"+key+"' href='#' class='ra' style='color:white; font-size: 18px'>"+key+"</a>");
 							$('#results').append("<br>");
@@ -138,7 +138,7 @@ $(function() {
 	});
 });
 
- $(function() {//检索 a
+ $(function() {//检索 languagemodel
 	$("#boolResults").click(function() {
 		document.getElementById('search').click();
 
@@ -189,7 +189,7 @@ $(function() {//倒排索引
 </script>
 <script type="text/javascript">
 
-  $(function() {//这里是动态元素<a>添加的事件 查看文档的内容
+  $(function() {//这里是动态元素<languagemodel>添加的事件 查看文档的内容
 	  $("body").on("click", ".ra", function() {
           //alert('这里是动态元素添加的事件');
           var fileName =$(this).attr("id");
@@ -601,7 +601,7 @@ $(function() {//去除提交文件的标点
 		<div class="col-md-10 col-md-offset-2" >
 			<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto"><!-- style="overflow:auto" overflow-y:scroll -->
 			<!-- 结果文档 -->
-			<!-- <a id="user" class="ra" href="#">ra类的超链接测试</a> -->
+			<!-- <languagemodel id="user" class="ra" href="#">ra类的超链接测试</languagemodel> -->
 			</div>
   			<div class="col-md-10 row pre-scrollable" id="contents" style="margin-top: 10px; overflow:auto; font-size: 15px; color:#C0C0C0 "><!-- 文档内容 --></div> 
 		</div>

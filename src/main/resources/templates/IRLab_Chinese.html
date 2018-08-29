@@ -82,7 +82,7 @@
 						<li role="presentation" ><a id="invertedIndex" href="#">布尔模型</a></li>
 						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
 						<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+						<li role="presentation" ><a id="languageIndex" href="#">语言模型</a></li>
    				 </ul>
   				</li>
 			</ul>
@@ -213,6 +213,32 @@
                         //$("p").append("<br>");
                     }
                 });
+                //alert("索引建立成功！");
+            },
+            error:function(){
+                alert("索引建立出错！");
+                $("#results").text("");// 清空数据
+            }
+        });
+    });
+
+    //语言模型的倒排索引
+    $("#languageIndex").click(function() {
+        //alert("倒排索引");
+        $.ajax({
+            type:"POST",
+            url:"/language/index",
+            traditional: true,
+            datatype:"json",
+            contentType:"application/x-www-form-urlencoded; charset=utf-8",
+            success:function(data){
+                var data = data.results;
+                console.log(data);
+                //alert(invertedIndex);
+                //	alert(invertedIndex);
+                $('#results').text("");// 清空数据
+                $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                $("#p").append(data);
                 //alert("索引建立成功！");
             },
             error:function(){

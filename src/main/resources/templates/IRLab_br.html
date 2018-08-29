@@ -95,7 +95,6 @@
 							<input name="term" type="text" class="form-control"
 								placeholder="检索词">
 						</div>
-						
 					</form>
 				</div>
 			</div>
@@ -253,8 +252,8 @@
                                 //var contents = obj[key];
                                 //aconsole.log(contents)
                                 //alert(key+"-->"+contents);
-                                //$('#results4').append("<a href='' onclick="+viewContents(contents)+">"+key+"</a>");
-                                //$('#results4').append("<a href='#' class='ra'>"+key+"</a>");
+                                //$('#results4').append("<languagemodel href='' onclick="+viewContents(contents)+">"+key+"</languagemodel>");
+                                //$('#results4').append("<languagemodel href='#' class='ra'>"+key+"</languagemodel>");
                                 //$('#results4').append("<br>");
                                 $('#results').append("<a id='"+key+"' href='#' class='ra' style='color:white; font-size: 18px'>"+key+"</a>");
                                 $('#results').append("<br>");
@@ -270,8 +269,8 @@
         });
     });
 
-    //动态元素<a>添加的事件 查看文档的内容
-    $(function() {//这里是动态元素<a>添加的事件 查看文档的内容
+    //动态元素<languagemodel>添加的事件 查看文档的内容
+    $(function() {//这里是动态元素<languagemodel>添加的事件 查看文档的内容
         $("body").on("click", ".ra", function() {
             //alert('这里是动态元素添加的事件');
             var fileName =$(this).attr("id");

@@ -97,6 +97,14 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 
+		<!--中文分词包-->
+		<!-- https://mvnrepository.com/artifact/com.hankcs/hanlp -->
+		<dependency>
+			<groupId>com.hankcs</groupId>
+			<artifactId>hanlp</artifactId>
+			<version>portable-1.6.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

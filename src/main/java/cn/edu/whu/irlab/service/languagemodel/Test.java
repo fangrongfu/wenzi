@@ -36,9 +36,8 @@ public class Test {
         ArrayList queryterms=retrival.querySolve(data);//预处理
         for (int i=0;i<queryterms.size();i++){//验证处理结果
             System.out.println(queryterms.get(i));}
-        ArrayList<Integer>results=retrival.calcRate(queryterms,documents,resultMap,perpleMap);//检索
-        System.out.println(results);
-
+        //ArrayList<Integer>results=retrival.calcRate(queryterms,documents,resultMap,perpleMap);//检索
+        //System.out.println(results);
     }
 
 }

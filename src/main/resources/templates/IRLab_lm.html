@@ -159,15 +159,17 @@
                 datatype:"json",
                 contentType:"application/x-www-form-urlencoded; charset=utf-8",
                 success:function(results){
-                    if(0==results.results){
+                    if(0==results.rate){
                         alert("抱歉！没有满足条件的检索结果！");
                         $("#results").text("");// 清空数据
                     }else{
                         $("#results").text("");// 清空数据
-                        JSONresults = results.results;
+                        JSONresults = results.rate;
+                        JSONresults1 = results.contents;
                         $.each(JSONresults,function(index,obj) {
                             for (key in obj){ //解析出得到的文档名key 和原文contents
-                                $('#results').append("<a id='"+key+"' href='#' class='ra' style='color:white; font-size: 18px'>"+key+"</a>");
+                                $('#results').append("<a id='"+key+"' href='#' class='ra' style='font-size: 18px;margin-right: 20px'>"+key+"</a>");
+                                $('#results').append("<span style='color:white; font-size: 18px'> "+obj[key]+"</span>");
                                 $('#results').append("<br>");
                             }
                         });
@@ -199,6 +201,31 @@
                 exampleInputPassword1: "required"
             }
         })
+    });
+
+    //动态元素<brmodel>添加的事件 查看文档的内容
+    $(function() {//这里是动态元素<brmodel>添加的事件 查看文档的内容
+        $("body").on("click", ".ra", function() {
+            //alert('这里是动态元素添加的事件');
+            var fileName =$(this).attr("id");
+            $(".ra").attr("style","font-size:18px; color:white");
+            $(this).attr("style","font-size:20px; color:#C0C0C0");
+            $.each(JSONresults1,function(index,obj) {
+                //console.log("到这里没有");
+                //console.log(obj[fileName]);
+                for (key in obj){
+                    var contents = obj[fileName];
+                    if(fileName==key){
+                        console.log(contents);
+                        //$("#contents").empty();
+                        //$("#contents").html(fileName+": <br>"+contents);
+                        $('#results').text("");// 清空数据
+                        $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                        $("#p").append(contents);
+                    }
+                }
+            });
+        });
     });
 </script>
 </html>

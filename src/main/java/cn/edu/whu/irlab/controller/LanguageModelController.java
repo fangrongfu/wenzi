@@ -66,9 +66,15 @@ public class LanguageModelController {
     @RequestMapping(value = "/search")
     @ResponseBody
     public ModelMap languageSearchController(@RequestParam(value = "λ",required = false) String λ,@RequestParam(value = "query",required = false)String query){
-        System.out.println(λ);
-        System.out.println(query);
+        //System.out.println(λ);
+        //System.out.println(query);
+        ArrayList ResultIDs = null;
+        ArrayList ResultRates = null;
+        TreeMap<String, String> map1 = new TreeMap<String, String>();
+        TreeMap<String, Double> map2 = new TreeMap<String, Double>();
+        Map<String,ArrayList> map = new HashMap<>();
         ModelMap modelMap = new ModelMap();
+        Perplexity perplexity=new Perplexity();
         String dataDir = null;
         try {
             dataDir = ResourceUtils.getFile("classpath:dataset").getPath();
@@ -76,8 +82,8 @@ public class LanguageModelController {
             e.printStackTrace();
         }
         Double aDouble = Double.valueOf(λ);//平滑系数
-        System.out.println(aDouble);
-        TreeMap<String, String> results = new TreeMap<String, String>();
+        //System.out.println(aDouble);
+        //TreeMap<String, String> results = new TreeMap<String, String>();
         boolean isChinese = true;
         Unigram unigram = new Unigram();
         Retrival retrival=new Retrival();
@@ -92,40 +98,45 @@ public class LanguageModelController {
         HashMap<Integer, String> docID_Content = document.getDocID_Contents();
         unigram.buildResultMap(documents);//建立倒排索引
         TreeMap resultMap = unigram.getResultMap();
+        perplexity.buildTermsMap(documents);
+        HashMap<String, String> termsMap = perplexity.getTermsMap();
         ArrayList terms= null;
         try {
             terms = retrival.querySolve(query);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Perplexity perplexity=new Perplexity();
         try {
             perplexity.buildPerpleMap(aDouble,resultMap,documents);//建立平滑索引
         } catch (IOException e) {
             e.printStackTrace();
         }
         Map perpleMap=perplexity.getPerpleMap();//获得平滑索引
-        ArrayList<Integer>ResultIDs = null;
         try {
-            ResultIDs = retrival.calcRate(terms,documents,resultMap,perpleMap);
+            map = retrival.calcRate(terms,documents,resultMap,perpleMap);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(null==ResultIDs) {//没有结果
+        if(null==map) {//没有结果
             modelMap.addAttribute("results",0);
             return modelMap;
         }else {
+            ResultIDs =  map.get("results");
+            ResultRates = map.get("resultsRate");
             for (int i = 0; i < ResultIDs.size(); i++) {
-                int id = ResultIDs.get(i);
-                results.put(docID_Name.get(id), docID_Content.get(id));
+                int id = (int) ResultIDs.get(i);
+                map1.put(docID_Name.get(id), docID_Content.get(id));
+                map2.put(docID_Name.get(id), (Double) ResultRates.get(i));
             }
-            if(results.isEmpty()) {//没有结果
+            if(map1.isEmpty()) {//没有结果
                 modelMap.addAttribute("results",0);
                 return modelMap;
             }else {
-                JSONArray jsonArray =JSONArray.fromObject(results);
-                System.out.println("jsonArray是： "+jsonArray);
-                modelMap.addAttribute("results",jsonArray);
+                JSONArray jsonArray =JSONArray.fromObject(map1);
+                JSONArray jsonArray1 =JSONArray.fromObject(map2);
+                //System.out.println("jsonArray是： "+jsonArray);
+                modelMap.addAttribute("contents",jsonArray);
+                modelMap.addAttribute("rate",jsonArray1);
                 return modelMap;
             }
         }

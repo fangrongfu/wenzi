@@ -47,10 +47,12 @@ public class Retrival {
     }
 
     //对前台的输入进行检索
-    public static ArrayList calcRate(ArrayList selectDicts, TreeMap<Integer, ArrayList<String>> documents, Map resultMap,Map perpleMap) throws IOException {
+    public static Map<String,ArrayList> calcRate(ArrayList selectDicts, TreeMap<Integer, ArrayList<String>> documents, Map resultMap,Map perpleMap) throws IOException {
         // List selectDicts = new ArrayList();
         // List articles = new ArrayList();
         ArrayList results = new ArrayList();
+        ArrayList resultsRate = new ArrayList();
+        Map<String,ArrayList> map = new HashMap<>();
         Perplexity p = new Perplexity();
         //Map perpleMap = p.buildPerpleMap(λ);
         //selectDicts = Arrays.asList(queryTerms);
@@ -75,11 +77,9 @@ public class Retrival {
                 for (int k = 0; k < objList.size(); k++) {//根据词取出来的概率做乘法
                     DocTerm dt = (DocTerm) objList.get(k);
                     articlelist.add(dt.getDocId());
-
                 }
             }
         }
-
         //遍历文章编号
         for (int i = 0; i < articlelist.size(); i++) {
             Integer articleNum = (Integer) articlelist.get(i);
@@ -120,11 +120,14 @@ public class Retrival {
         for (Map.Entry<Integer, Double> mapping : list) {
             //System.out.println(mapping.getKey() + ":" + mapping.getValue());
             results.addAll(Collections.singleton(mapping.getKey()));
+            resultsRate.addAll(Collections.singleton(mapping.getValue()));
         }
         // System.out.println("查询完毕2。");
         //  System.out.println(results);
         if (results.size() > 0) {
-            return results;
+            map.put("results",results);
+            map.put("resultsRate",resultsRate);
+            return map;
         }else return null;
     }
 }

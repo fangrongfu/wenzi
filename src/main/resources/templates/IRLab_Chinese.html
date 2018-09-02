@@ -12,60 +12,65 @@
 </head>
 	 <body>
 	<div class="mainDiv" >
-	<nav class="navbar navbar-inverse">
-		<!-- <div class="container" style="margin-left: 200px"> -->
-		<div class="row" style="margin-left: 200px">
-			<ul class="nav nav-pills">
-				<li role="presentation"
-					style="margin-right: 50px; width: 500px; height: 50px"><img
-						src="images/IRLablogo.png" alt=""
-						style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
-						style="color: rgb(255, 255, 255); font-size: 20px">IRLab信息检索与自然语言处理可视化实验平台</span>
-				</li>
-				<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
-						预处理<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
-					</ul>
-				</li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						检索模型<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
-					</ul>
-				</li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						深度学习<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
-					</ul>
-				</li>
-				<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
-			</ul>
-		</div>
-	</nav>
+		<nav class="navbar navbar-inverse">
+			<!-- <div class="container" style="margin-left: 200px"> -->
+			<div class="row" style="margin-left: 200px">
+				<ul class="nav nav-pills">
+					<li role="presentation"
+						style="margin-right: 50px; width: 500px; height: 50px"><img
+							src="images/IRLablogo.png" alt=""
+							style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
+							style="color: rgb(255, 255, 255); font-size: 20px;text-align: center">IR&NLP虚拟仿真辅助实验平台</span>
+					</li>
+					<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
+							预处理<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							检索模型<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							深度学习<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
+						</ul>
+					</li>
+					<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
+				</ul>
+			</div>
+		</nav>
 	<div class="row" style="margin-top: 30px;">
 		<div class="col-md-2 col-md-offset-2" style="margin-top: 60px">
 			<h4>实验文档集列表：</h4>
 			<div class="list-group" >
-  				<a href="javascript:void(0);" onclick="a_txt('个税法修正.txt')" class="list-group-item" style="color: black">个税法修正.txt</a>
-  				<a href="javascript:void(0);" onclick="a_txt('中新网.txt')" class="list-group-item" style="color: black">中新网.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('中评社.txt')" class="list-group-item" style="color: black">中评社.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('人民日报.txt')" class="list-group-item" style="color: black">人民日报.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('新华社.txt')" class="list-group-item" style="color: black">新华社.txt</a>
+  				<a href="javascript:void(0);" onclick="a_txt('个税法修正.txt')" class="list-group-item" style="color: black">(文档ID:1)个税法修正.txt</a>
+  				<a href="javascript:void(0);" onclick="a_txt('中新网.txt')" class="list-group-item" style="color: black">(文档ID:2)中新网.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('中评社.txt')" class="list-group-item" style="color: black">(文档ID:3)中评社.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('人民日报.txt')" class="list-group-item" style="color: black">(文档ID:4)人民日报.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('外交部发言人.txt')" class="list-group-item" style="color: black">(文档ID:5)外交部发言人.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('新华社.txt')" class="list-group-item" style="color: black">(文档ID:6)新华社.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('环球网综合报道.txt')" class="list-group-item" style="color: black">(文档ID:7)环球网综合报道.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('视界.txt')" class="list-group-item" style="color: black">(文档ID:8)视界.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('金砖国家领导人第十次会晤.txt')" class="list-group-item" style="color: black">(文档ID:9)金砖国家领导人第十次会晤.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('陈家记一审获刑13年.txt')" class="list-group-item" style="color: black">(文档ID:10)陈家记一审获刑13年.txt</a>
 			</div>
 		</div>
 		
@@ -86,7 +91,7 @@
    				 </ul>
   				</li>
 			</ul>
-			<div class="row col-md-6 pre-scrollable" id="results" >
+			<div class="row col-md-6 pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height: 350px; border:1px solid MintCream;">
   		</div>
 	</div>
 	</div>
@@ -95,8 +100,7 @@
 		<div class="container">
 			<div class="row footer-top">
 				<div class="col-sm-6 col-lg-6">
-					<h4>武汉大学信息管理学院</h4>
-					<p>信息检索与知识挖掘研究所</p>
+					<h4>信息检索与知识挖掘研究所</h4>
 					<p><span class="glyphicon glyphicon-map-marker"></span>湖北省武汉市武昌区珞珈山武汉大学信息管理学院611室</p>
 				</div>
 				<div class="col-sm-6  col-lg-5 col-lg-offset-1">
@@ -205,6 +209,7 @@
                 //	alert(invertedIndex);
                 $('#results').text("");// 清空数据
                 $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                $("#p").append("词项" + "---> " + "文档ID" + "<br>");
                 $.each(invertedIndex,function(index,obj) {
                     for (key in obj){ //解析出得到的文档名key 和原文contents
                         var posting = obj[key];

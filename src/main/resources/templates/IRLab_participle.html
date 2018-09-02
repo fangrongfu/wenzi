@@ -12,51 +12,51 @@
 	<!--  <body style="background-image:url(images/bg8.jpg)"> -->
 	<body>
 	<div class="mainDiv">
-	<nav class="navbar navbar-inverse">
-		<!-- <div class="container" style="margin-left: 200px"> -->
-		<div class="row" style="margin-left: 200px">
-			<ul class="nav nav-pills">
-				<li role="presentation"
-					style="margin-right: 50px; width: 500px; height: 50px"><img
-						src="images/IRLablogo.png" alt=""
-						style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
-						style="color: rgb(255, 255, 255); font-size: 20px">IRLab信息检索与自然语言处理可视化实验平台</span>
-				</li>
-				<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
-						预处理<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
-					</ul>
-				</li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						检索模型<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
-					</ul>
-				</li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						深度学习<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
-					</ul>
-				</li>
-				<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
-			</ul>
-		</div>
-	</nav>
+		<nav class="navbar navbar-inverse">
+			<!-- <div class="container" style="margin-left: 200px"> -->
+			<div class="row" style="margin-left: 200px">
+				<ul class="nav nav-pills">
+					<li role="presentation"
+						style="margin-right: 50px; width: 500px; height: 50px"><img
+							src="images/IRLablogo.png" alt=""
+							style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
+							style="color: rgb(255, 255, 255); font-size: 20px;text-align: center">IR&NLP虚拟仿真辅助实验平台</span>
+					</li>
+					<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
+							预处理<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							检索模型<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							深度学习<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
+						</ul>
+					</li>
+					<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
+				</ul>
+			</div>
+		</nav>
 	<div class="container">
 		
 		<div class="row" style="margin-top: 20px">
@@ -88,9 +88,7 @@
 		<div class="col-md-10 col-md-offset-2" >
 			<h4>检索结果：</h4>
 			<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
-			<div class="col-md-10 row pre-scrollable" id="results" >
-				<textarea class="form-control" rows="12" id="analysisResult">
-            </textarea>
+			<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:350px; border:1px solid MintCream;">
 				<!--该div用于展示结果文档名<br>
 				<languagemodel href="IRLab_Chinese.html">视界.txt</languagemodel>
 				<br>环球网综合报道.txt<br>中新网.txt<br>个税法修正.txt<br>人民日报.txt<br>陈家记一审获刑13年.txt<br>新华社.txt<br>外交部发言人.txt<br>
@@ -109,8 +107,7 @@
 		<div class="container">
 			<div class="row footer-top">
 				<div class="col-sm-6 col-lg-6">
-					<h4>武汉大学信息管理学院</h4>
-					<p>信息检索与知识挖掘研究所</p>
+					<h4>信息检索与知识挖掘研究所</h4>
 					<p><span class="glyphicon glyphicon-map-marker"></span>湖北省武汉市武昌区珞珈山武汉大学信息管理学院611室</p>
 				</div>
 				<div class="col-sm-6  col-lg-5 col-lg-offset-1">
@@ -144,6 +141,7 @@
 		</div>
 	</div>
 
+
 	</body>
 <script>
     $(document).ready(function(){
@@ -158,8 +156,8 @@
                 contentType:"application/x-www-form-urlencoded; charset=utf-8",
                 traditional: true,
                 success:function(data){
-                    console.log(data.results);
-                    $("#analysisResult").val(data.results);
+                    $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                    $("#p").append(data.results);
                 },
                 error:function(){
                     alert("分词出错！");

@@ -11,51 +11,51 @@
 </head>
 	 <body>
 	<div class="mainDiv">
-	<nav class="navbar navbar-inverse">
-		<!-- <div class="container" style="margin-left: 200px"> -->
-		<div class="row" style="margin-left: 200px">
-			<ul class="nav nav-pills">
-				<li role="presentation"
-					style="margin-right: 50px; width: 500px; height: 50px"><img
-						src="images/IRLablogo.png" alt=""
-						style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
-						style="color: rgb(255, 255, 255); font-size: 20px">IRLab信息检索与自然语言处理可视化实验平台</span>
-				</li>
-				<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
-						预处理<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
-					</ul>
-				</li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						检索模型<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
-					</ul>
-				</li>
-				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						深度学习<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
-					</ul>
-				</li>
-				<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
-			</ul>
-		</div>
-	</nav>
+		<nav class="navbar navbar-inverse">
+			<!-- <div class="container" style="margin-left: 200px"> -->
+			<div class="row" style="margin-left: 200px">
+				<ul class="nav nav-pills">
+					<li role="presentation"
+						style="margin-right: 50px; width: 500px; height: 50px"><img
+							src="images/IRLablogo.png" alt=""
+							style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
+							style="color: rgb(255, 255, 255); font-size: 20px;text-align: center">IR&NLP虚拟仿真辅助实验平台</span>
+					</li>
+					<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
+							预处理<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							检索模型<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							深度学习<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
+							<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
+						</ul>
+					</li>
+					<li role="presentation" style=" margin-top:5px"><a href="#">API</a></li>
+				</ul>
+			</div>
+		</nav>
 	<div class="container">
 		
 		<div class="row" style="margin-top: 20px">
@@ -106,8 +106,7 @@
 		<div class="container">
 			<div class="row footer-top">
 				<div class="col-sm-6 col-lg-6">
-					<h4>武汉大学信息管理学院</h4>
-					<p>信息检索与知识挖掘研究所</p>
+					<h4>信息检索与知识挖掘研究所</h4>
 					<p><span class="glyphicon glyphicon-map-marker"></span>湖北省武汉市武昌区珞珈山武汉大学信息管理学院611室</p>
 				</div>
 				<div class="col-sm-6  col-lg-5 col-lg-offset-1">

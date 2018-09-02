@@ -12,6 +12,7 @@ public class Unigram {
     static MyComparator comparator = new MyComparator();
     TreeMap resultMap = new TreeMap() ;//建立一个map存放每篇文档的terms、docID和对应的概率
     private final static Comparator<Object> CHINA_COMPARE = Collator.getInstance(Locale.CHINA);
+    HashMap tfMap = new HashMap();
 
 public Unigram(){
     this.resultMap=new TreeMap();
@@ -21,6 +22,9 @@ public TreeMap<String, String> getResultMap() {
         return resultMap;
     }
 
+    public HashMap getTfMap(){
+        return tfMap;
+    }
 
     //用于计算词的概率
     public void buildResultMap(TreeMap<Integer, ArrayList<String>> documents) {
@@ -61,7 +65,9 @@ public TreeMap<String, String> getResultMap() {
                 for (String key : keys) {
                     int j = 0;
                     double a = map.get(key);
+                    int tf = map.get(key);
                     double b = count;
+                    tfMap.put(key,tf);
                     j++;
                     rate = String.valueOf(a / b);
                     String key1 = key + "--->" + "[" + docID + "--" + a / b + "]";

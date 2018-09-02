@@ -44,21 +44,31 @@ public class LanguageModelController {
         }
         TreeMap<Integer, ArrayList<String>> documents = dataProcessing.getDocuments();
         unigram.buildResultMap(documents);//建立倒排索引
+        HashMap tfMap = unigram.getTfMap();
         TreeMap resultMap = unigram.getResultMap();
         Iterator<String> it = resultMap.keySet().iterator();
         String term = null;
         ArrayList posting = null;
         StringBuffer docIDs = new StringBuffer();
+        int m = 0;
+        docIDs.append("词项" + "---> " + "文档ID" + "--" + "频率" + "--" + "概率");
+        docIDs.append("<br>");
+        docIDs.append("<br>");
         while (it.hasNext()) {
             term = it.next();
             posting = (ArrayList) resultMap.get(term);
-            docIDs.append(term + "--->[");
+            docIDs.append(term + "---> ");
+            m = term.length();
+            //System.out.println(m);
             for (int i = 0; i < posting.size(); i++) {
                 DocTerm aa = (DocTerm) posting.get(i);
-                docIDs.append(aa.docId + "--" + aa.rate);
-                docIDs.append(", ");
+                docIDs.append(aa.docId + "--" + tfMap.get(term) + "--" + aa.rate);
+                docIDs.append("</br>");
+                for (int n = 0; n < m+10; n++) {
+                    docIDs.append("&nbsp;");
+                }
             }
-            docIDs.append(']'+"<br>");
+            docIDs.append("<br>");
         }
         return modelMap.addAttribute("results",docIDs);
     }

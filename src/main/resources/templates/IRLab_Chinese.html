@@ -61,28 +61,28 @@
 		<div class="col-md-2 col-md-offset-2" style="margin-top: 60px">
 			<h4>实验文档集列表：</h4>
 			<div class="list-group" >
-  				<a href="javascript:void(0);" onclick="a_txt('1.txt')" class="list-group-item" style="color: black">1.txt</a>
-  				<a href="javascript:void(0);" onclick="a_txt('2.txt')" class="list-group-item" style="color: black">2.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('3.txt')" class="list-group-item" style="color: black">3.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('4.txt')" class="list-group-item" style="color: black">4.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('5.txt')" class="list-group-item" style="color: black">5.txt</a>
+  				<a href="javascript:void(0);" onclick="a_txt('个税法修正.txt')" class="list-group-item" style="color: black">个税法修正.txt</a>
+  				<a href="javascript:void(0);" onclick="a_txt('中新网.txt')" class="list-group-item" style="color: black">中新网.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('中评社.txt')" class="list-group-item" style="color: black">中评社.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('人民日报.txt')" class="list-group-item" style="color: black">人民日报.txt</a>
+ 				<a href="javascript:void(0);" onclick="a_txt('新华社.txt')" class="list-group-item" style="color: black">新华社.txt</a>
 			</div>
 		</div>
 		
   		<div class="col-md-5" style="margin-left:145px">
   			<h3 style="text-align:center;">中文预处理</h3>
   			<ul class="nav nav-tabs">
-  				<li role="presentation" class="active"><a id="analysis" href="#" style="font-size: 15px;">分词</a></li>
-  				<li role="presentation"><a id="punctuation" href="#" style="font-size: 15px;">去标点符号</a></li>
+  				<li role="presentation" class="active"><a data-toggle="tab" id="analysis" href="#" style="font-size: 15px;">分词</a></li>
+  				<li role="presentation"><a data-toggle="tab" id="punctuation" href="#" style="font-size: 15px;">去标点符号</a></li>
   				<li role="presentation" class="dropdown">
     				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"style="font-size: 15px;">
      				建立索引<span class="caret"></span>
    					</a>
    					<ul class="dropdown-menu" style="font-size: 15px;">
-						<li role="presentation" ><a id="invertedIndex" href="#">布尔模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
-						<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
-						<li role="presentation" ><a id="languageIndex" href="#">语言模型</a></li>
+						<li role="presentation" ><a data-toggle="tab" id="invertedIndex" href="#">布尔模型</a></li>
+						<li role="presentation" ><a data-toggle="tab" th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+						<li role="presentation" ><a data-toggle="tab" th:href="@{/IRLab_pm}">概率模型</a></li>
+						<li role="presentation" ><a data-toggle="tab"	 id="languageIndex" href="#">语言模型</a></li>
    				 </ul>
   				</li>
 			</ul>

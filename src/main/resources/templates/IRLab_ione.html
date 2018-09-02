@@ -40,13 +40,13 @@
 						<ul class="dropdown-menu">
 							<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
 							<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
-							<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>
+							<!--<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>-->
 							<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
 						</ul>
 					</li>
 					<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-							深度学习<span class="caret"></span>
+							NLP<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
@@ -77,7 +77,7 @@
    					<div class="input-group">
       					<input id="inputSentence" name="term" type="text" class="form-control" placeholder="Search for...">
      					<span class="input-group-btn">
-        					<button id="search" class="btn btn-default" type="button">检索</button>
+        					<button id="search" class="btn btn-default" type="button">输入</button>
       					</span>
     				</div>
 				</div>
@@ -87,7 +87,7 @@
 		</div>
 		<div class="row" id="resutlRow" style="margin-top: 30px;margin-left: 70px" >
 		<div class="col-md-10 col-md-offset-2" >
-			<h4>检索结果：</h4>
+			<h4>处理结果：</h4>
 			<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
 			<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:350px; border:1px solid MintCream;" >
 				<!--该div用于展示结果文档名<br>

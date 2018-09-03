@@ -58,42 +58,47 @@
 			</div>
 		</nav>
 	<div class="row" style="margin-top: 30px;">
-		<div class="col-md-2 col-md-offset-2" style="margin-top: 60px">
-			<h4>实验文档集列表：</h4>
-			<div class="list-group" >
-  				<a href="javascript:void(0);" onclick="a_txt('个税法修正.txt')" class="list-group-item" style="color: black">(文档ID:1)个税法修正.txt</a>
-  				<a href="javascript:void(0);" onclick="a_txt('中新网.txt')" class="list-group-item" style="color: black">(文档ID:2)中新网.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('中评社.txt')" class="list-group-item" style="color: black">(文档ID:3)中评社.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('人民日报.txt')" class="list-group-item" style="color: black">(文档ID:4)人民日报.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('外交部发言人.txt')" class="list-group-item" style="color: black">(文档ID:5)外交部发言人.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('新华社.txt')" class="list-group-item" style="color: black">(文档ID:6)新华社.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('环球网综合报道.txt')" class="list-group-item" style="color: black">(文档ID:7)环球网综合报道.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('视界.txt')" class="list-group-item" style="color: black">(文档ID:8)视界.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('金砖国家领导人第十次会晤.txt')" class="list-group-item" style="color: black">(文档ID:9)金砖国家领导人第十次会晤.txt</a>
- 				<a href="javascript:void(0);" onclick="a_txt('陈家记一审获刑13年.txt')" class="list-group-item" style="color: black">(文档ID:10)陈家记一审获刑13年.txt</a>
-			</div>
-		</div>
-		
-  		<div class="col-md-5" style="margin-left:145px">
-  			<h3 style="text-align:center;">中文预处理</h3>
-  			<ul class="nav nav-tabs">
-  				<li role="presentation" class="active"><a data-toggle="tab" id="analysis" href="#" style="font-size: 15px;">分词</a></li>
-  				<li role="presentation"><a data-toggle="tab" id="punctuation" href="#" style="font-size: 15px;">去标点符号</a></li>
-  				<li role="presentation" class="dropdown">
-    				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"style="font-size: 15px;">
-     				建立索引<span class="caret"></span>
-   					</a>
-   					<ul class="dropdown-menu" style="font-size: 15px;">
-						<li role="presentation" ><a data-toggle="tab" id="invertedIndex" href="#">布尔模型</a></li>
-						<li role="presentation" ><a data-toggle="tab" th:href="@{/IRLab_vsm}">向量空间模型</a></li>
-						<!--<li role="presentation" ><a data-toggle="tab" th:href="@{/IRLab_pm}">概率模型</a></li>-->
-						<li role="presentation" ><a data-toggle="tab"	 id="languageIndex" href="#">语言模型</a></li>
-   				 </ul>
-  				</li>
-			</ul>
-			<div class="row col-md-6 pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height: 350px; border:1px solid MintCream;">
-  		</div>
-	</div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <h3 style="text-align:center;">中文预处理</h3>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-2 col-md-offset-2">
+                <h4>实验文档集列表：</h4>
+                <div class="list-group" >
+                    <a href="javascript:void(0);" onclick="a_txt('个税法修正.txt')" class="list-group-item" style="color: black">(文档ID:1)个税法修正</a>
+                    <a href="javascript:void(0);" onclick="a_txt('中新网.txt')" class="list-group-item" style="color: black">(文档ID:2)中新网</a>
+                    <a href="javascript:void(0);" onclick="a_txt('中评社.txt')" class="list-group-item" style="color: black">(文档ID:3)中评社</a>
+                    <a href="javascript:void(0);" onclick="a_txt('人民日报.txt')" class="list-group-item" style="color: black">(文档ID:4)人民日报</a>
+                    <a href="javascript:void(0);" onclick="a_txt('外交部发言人.txt')" class="list-group-item" style="color: black">(文档ID:5)外交部发言人</a>
+                    <a href="javascript:void(0);" onclick="a_txt('新华社.txt')" class="list-group-item" style="color: black">(文档ID:6)新华社</a>
+                    <a href="javascript:void(0);" onclick="a_txt('环球网综合报道.txt')" class="list-group-item" style="color: black">(文档ID:7)环球网综合报道</a>
+                    <a href="javascript:void(0);" onclick="a_txt('视界.txt')" class="list-group-item" style="color: black">(文档ID:8)视界</a>
+                    <a href="javascript:void(0);" onclick="a_txt('金砖国家领导人第十次会晤.txt')" class="list-group-item" style="color: black">(文档ID:9)金砖国家领导人第十次会晤</a>
+                    <a href="javascript:void(0);" onclick="a_txt('陈家记一审获刑13年.txt')" class="list-group-item" style="color: black">(文档ID:10)陈家记一审获刑13年</a>
+                </div>
+            </div>
+
+            <div class="col-md-5" style="margin-left:30px;margin-top: 5px">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a data-toggle="tab" id="analysis" href="#" style="font-size: 15px;">分词</a></li>
+                    <li role="presentation"><a data-toggle="tab" id="punctuation" href="#" style="font-size: 15px;">去标点符号</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"style="font-size: 15px;">
+                            建立索引<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="font-size: 15px;">
+                            <li role="presentation" ><a data-toggle="tab" id="invertedIndex" href="#">布尔模型</a></li>
+                            <li role="presentation" ><a data-toggle="tab" id="vectorIndex" href="#">向量空间模型</a></li>
+                            <!--<li role="presentation" ><a data-toggle="tab" th:href="@{/IRLab_pm}">概率模型</a></li>-->
+                            <li role="presentation" ><a data-toggle="tab" id="languageIndex" href="#">语言模型</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="row col-md-6 pre-scrollable" id="results">
+                </div>
+        </div>
 	</div>
 	</div>
 	<div class="footer">
@@ -233,6 +238,32 @@
         $.ajax({
             type:"POST",
             url:"/language/index",
+            traditional: true,
+            datatype:"json",
+            contentType:"application/x-www-form-urlencoded; charset=utf-8",
+            success:function(data){
+                var data = data.results;
+                console.log(data);
+                //alert(invertedIndex);
+                //	alert(invertedIndex);
+                $('#results').text("");// 清空数据
+                $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                $("#p").append(data);
+                //alert("索引建立成功！");
+            },
+            error:function(){
+                alert("索引建立出错！");
+                $("#results").text("");// 清空数据
+            }
+        });
+    });
+
+    //空间向量模型的倒排索引
+    $("#vectorIndex").click(function() {
+        //alert("倒排索引");
+        $.ajax({
+            type:"POST",
+            url:"/vector/index",
             traditional: true,
             datatype:"json",
             contentType:"application/x-www-form-urlencoded; charset=utf-8",

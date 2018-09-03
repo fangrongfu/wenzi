@@ -32,10 +32,10 @@ label{
 }
 
 #results{
-    overflow:auto;
+    //overflow-y:auto;
     margin-left:1px;
-    width:700px;
-    height:200px;
+    width:758px;
+    height:700px;
     background-color: rgba(255,255,255,0.5);
     border-radius:5px;
 }

@@ -269,13 +269,20 @@
             datatype:"json",
             contentType:"application/x-www-form-urlencoded; charset=utf-8",
             success:function(data){
-                var data = data.results;
-                console.log(data);
-                //alert(invertedIndex);
-                //	alert(invertedIndex);
+                //console.log(data);
                 $('#results').text("");// 清空数据
                 $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
-                $("#p").append(data);
+                $("#p").append("词项" + "---> " + "文档ID" + "<br>");
+                for(var key in data) {
+					var jsonArray = data[key];
+                    //console.log(key);
+                    $("#p").append(key+" ---> ["+jsonArray.toString() +"]");
+                    $("#p").append("<br>");
+                    /*for(j = 0,len=jsonArray.length; j < len; j++) {
+                        $("#p").append(key+" ---> "+jsonArray[j]);
+                        $("#p").append("<br>");
+                    }*/
+                }
                 //alert("索引建立成功！");
             },
             error:function(){

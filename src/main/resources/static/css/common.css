@@ -80,4 +80,6 @@ body {
     -o-background-size: cover;
     background-position: center 0;
     height:1024px;
+    data-spy:scroll;
+    data-target:".navbar-example";
 }

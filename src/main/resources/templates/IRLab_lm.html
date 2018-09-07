@@ -65,85 +65,149 @@
 				</ul>
 			</div>
 		</nav>
-	<div class="container">
-		
-		<div class="row" style="margin-top: 20px">
-			<div class="col-md-3 col-md-offset-4" >
-				<h2>语言检索模型</h2>
-			</div>
-		</div>
-			<div class="row" style="margin-left: 70px">
-				<div class="col-md-6 col-md-offset-2">
-					<form id="mainForm">
-						<div class="form-group">
-							<label for="exampleInputEmail1">请输入平滑系数λ(0≤λ≤1)</label>
-							<input type="text" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" placeholder="平滑系数">
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">请输入您想要检索的内容：</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1" placeholder="检索内容">
-								<span class="input-group-btn"><button class="btn btn-default btn-info" type="submit" id="search">检索</button></span>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 col-md-3 col-ms-offset-2" style="margin-left: 150px;margin-top: 80px">
+					<nav id="navbar-example" class="navbar navbar-default navbar-static" role="navigation">
+						<div class="container-fluid">
+							<div class="navbar-header">
+								<button class="navbar-toggle" type="button" data-toggle="collapse"
+										data-target=".bs-js-navbar-scrollspy">
+									<span class="sr-only">切换导航</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+								<a class="navbar-brand" href="#">语言模型</a>
+							</div>
+							<div class="collapse navbar-collapse bs-js-navbar-scrollspy">
+								<ul class="nav navbar-nav">
+									<li><a href="#brief">简介</a></li>
+									<li><a href="#step">实现步骤</a></li>
+									<li class="dropdown">
+										<a href="#" id="navbarDrop1" class="dropdown-toggle"
+										   data-toggle="dropdown">优缺点
+											<b class="caret"></b>
+										</a>
+										<ul class="dropdown-menu" role="menu"
+											aria-labelledby="navbarDrop1">
+											<li><a href="#adv" tabindex="-1">优点</a></li>
+											<li class="divider"></li>
+											<li><a href="#disadv" tabindex="-1">缺点</a></li>
+										</ul>
+									</li>
+								</ul>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-		<div class="row" id="resutlRow" style="margin-top: 30px;margin-left: 70px" >
-		<div class="col-md-10 col-md-offset-2" >
-			<h4>检索结果：</h4>
-			<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
-			<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:350px; border:1px solid MintCream;">
+					</nav>
+					<div data-spy="scroll" data-target="#navbar-example" data-offset="0"
+						 style="height:850px;overflow:auto; position: relative;">
+						<h3 id="brief">简介</h3>
+						<p style="color: white;font-size: 18px;">
+							由文档到查询，即为每个文档建立不同的语言模型，判断由文档生成用户查询的可能性有多大，然后按照这种生成概率由高到低排序，作为搜索结果。
+						</p>
+						<h3 id="step">实现步骤</h3>
+						<p style="color: white;font-size: 18px;">
+							1.对每篇文档推导出其LM ，即每个文档中的词在该文档中的概率。
+						</p>
+						<p style="color: white;font-size: 18px;">
+							2.估计查询在每个文档di 的LM 下的生成概率P(q|Md)，一元语言模型即为
+							P(q│Md)=∏▒(tf_(t,d))/L_d  ，其中(tf_(t,d))/L_d 为词项t在文档d中出现的原始概率。
 
-				
-			</div>
-  			<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
-  			<div class="col-md-10 row pre-scrollable" id="contents" hidden="hidden">
-  				这个div被隐藏，在需要查看结果文档内容时动态显示
-  			</div> 
-		</div>
-	</div>
-	</div>
-	</div>
-	<div class="footer">
-		<div class="container">
-			<div class="row footer-top">
-				<div class="col-sm-6 col-lg-6">
-					<h4>信息检索与知识挖掘研究所</h4>
-					<p><span class="glyphicon glyphicon-map-marker"></span>湖北省武汉市武昌区珞珈山武汉大学信息管理学院611室</p>
+						</p>
+						<p style="color: white;font-size: 18px;">
+							2.按照上述概率对文档进行排序。
+						</p>
+						<h3 id="adv">优点</h3>
+						<p style="color: white;font-size: 18px;">
+							理论上具有解释性，有扩展空间；模型本身并不依赖于term独立性假设。
+						</p>
+						<h3 id="disadv">缺点</h3>
+						<p style="color: white;font-size: 18px;">
+							数据稀疏性，需要参数估计。
+						</p>
+					</div>
 				</div>
-				<div class="col-sm-6  col-lg-5 col-lg-offset-1">
-					<div class="row about">
-						<div class="col-xs-3">
-							<h4>机构简介</h4>
-							<ul class="list-unstyled">
-								<li>
-									<a style='color:#fff' href="http://ir.whu.edu.cn/"><span class="glyphicon glyphicon-link"></span>&nbsp关于我们</a>
-								</li>
-							</ul>
-						</div>
-						<div class="col-xs-9">
-							<h4>联系方式</h4>
-							<ul class="list-unstyled">
-								<li>
-									<span class="glyphicon glyphicon-envelope">&nbsp电子邮件:weilu@whu.edu.cn</span>
-								</li>
-							</ul>
+				<div class="col-xs-12 col-md-9 col-ms-offset-5" style="margin-left: 50px;width:900px">
+					<div class="row" style="margin-top: 20px">
+						<div class="col-md-3 col-md-offset-4" >
+							<h2>语言检索模型</h2>
 						</div>
 					</div>
+					<div class="row" style="margin-left: 70px">
+						<div class="col-md-6 col-md-offset-2">
+							<form id="mainForm">
+								<div class="form-group">
+									<label for="exampleInputEmail1">请输入平滑系数λ(0≤λ≤1)</label>
+									<input type="text" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" placeholder="平滑系数">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">请输入您想要检索的内容：</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1" placeholder="检索内容">
+										<span class="input-group-btn"><button class="btn btn-default btn-info" type="submit" id="search">检索</button></span>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row" id="resutlRow" style="margin-top: 30px;margin-left: 70px" >
+						<div class="col-md-10 col-md-offset-2" >
+							<h4>检索结果：</h4>
+							<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
+							<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:350px; border:1px solid MintCream;">
 
+
+							</div>
+							<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
+							<div class="col-md-10 row pre-scrollable" id="contents" hidden="hidden">
+								这个div被隐藏，在需要查看结果文档内容时动态显示
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<hr>
-			<div class="row footer-bottom">
-				<ul class="list-inline text-center">
-					<li>Copyright &copy;2018. 武汉大学信息检索与知识挖掘研究所  All Rights Reserved.</li>
-				</ul>
+			<div class="footer">
+				<div class="container">
+					<div class="row footer-top">
+						<div class="col-sm-6 col-lg-6">
+							<h4>信息检索与知识挖掘研究所</h4>
+							<p><span class="glyphicon glyphicon-map-marker"></span>湖北省武汉市武昌区珞珈山武汉大学信息管理学院611室</p>
+						</div>
+						<div class="col-sm-6  col-lg-5 col-lg-offset-1">
+							<div class="row about">
+								<div class="col-xs-3">
+									<h4>机构简介</h4>
+									<ul class="list-unstyled">
+										<li>
+											<a style='color:#fff' href="http://ir.whu.edu.cn/"><span class="glyphicon glyphicon-link"></span>&nbsp关于我们</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-xs-9">
+									<h4>联系方式</h4>
+									<ul class="list-unstyled">
+										<li>
+											<span class="glyphicon glyphicon-envelope">&nbsp电子邮件:weilu@whu.edu.cn</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<hr>
+					<div class="row footer-bottom">
+						<ul class="list-inline text-center">
+							<li>Copyright &copy;2018. 武汉大学信息检索与知识挖掘研究所  All Rights Reserved.</li>
+						</ul>
+					</div>
+				</div>
+				</div>
+
 			</div>
+
 		</div>
-	</div>
-
-
 	</body>
 
 <script type="text/javascript">

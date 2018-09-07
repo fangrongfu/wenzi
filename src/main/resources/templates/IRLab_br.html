@@ -9,7 +9,7 @@
 	<script src="jquery-2.1.1/jquery.min.js" type="text/javascript"></script>
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 </head>
-    <body>
+    <body >
 	<div class="mainDiv" >
 		<nav class="navbar navbar-inverse">
 			<!-- <div class="container" style="margin-left: 200px"> -->
@@ -56,101 +56,162 @@
 				</ul>
 			</div>
 		</nav>
-	<div class="container">
-		
-		<div class="row" style="margin-top: 20px">
-			<div class="col-md-3 col-md-offset-4" >
-				<h2>布尔检索模型</h2>
-			</div>
-		</div>
-		<div class="row" id="expressionTitle" style="margin-top: 50px; margin-left: 30px ">
-			<div class="col-md-3 col-md-offset-2" >
-				<h4>请输入检索条件：</h4>
-			</div>
-		</div>
-
-		<div id="expression">
-			<div class="row" style=" margin-left: 30px ">
-				<div class="col-md-10 col-md-offset-2">
-					<form class="form-inline">
-						<div class="form-group">
-							<button name="add" type="button" class="btn btn-default"
-								onclick="addRow()">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-6 col-md-3 col-ms-offset-2" style="margin-left: 150px;margin-top: 80px">
+				<nav id="navbar-example" class="navbar navbar-default navbar-static" role="navigation">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button class="navbar-toggle" type="button" data-toggle="collapse"
+									data-target=".bs-js-navbar-scrollspy">
+								<span class="sr-only">切换导航</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
 							</button>
-							<button name="clear" type="button" class="btn btn-default" onclick="removeRow()">
-								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-							</button>
-							<input name="term" type="text" class="form-control"
-								placeholder="检索词">
+							<a class="navbar-brand" href="#">布尔模型</a>
 						</div>
-						<div class="form-group">
-								<select name="operator" class="form-control">
-									<option>and</option>
-									<option>or</option>
-									<option>not</option>
-								</select>
+						<div class="collapse navbar-collapse bs-js-navbar-scrollspy">
+							<ul class="nav navbar-nav">
+								<li><a href="#brief">简介</a></li>
+								<li><a href="#step">实现步骤</a></li>
+								<li class="dropdown">
+									<a href="#" id="navbarDrop1" class="dropdown-toggle"
+									   data-toggle="dropdown">优缺点
+										<b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu" role="menu"
+										aria-labelledby="navbarDrop1">
+										<li><a href="#adv" tabindex="-1">优点</a></li>
+										<li class="divider"></li>
+										<li><a href="#disadv" tabindex="-1">缺点</a></li>
+									</ul>
+								</li>
+							</ul>
 						</div>
-						<div class="form-group">
-							<input name="term" type="text" class="form-control"
-								placeholder="检索词">
-						</div>
-					</form>
+					</div>
+				</nav>
+				<div data-spy="scroll" data-target="#navbar-example" data-offset="0"
+					 style="height:850px;overflow:auto; position: relative;">
+					<h3 id="brief">简介</h3>
+					<p style="color: white;font-size: 18px;">
+						基于集合论和布尔代数的一种简单检索模型，是最常用的检索模型。特点是查找那些于某个查询词返回为“真”的文档。
+					</p>
+					<h3 id="step">实现步骤</h3>
+					<p style="color: white;font-size: 18px;">
+						1.文档及查询表示：文档与用户查询由其包含的单词集合来表示。
+				    </p>
+					<p style="color: white;font-size: 18px;">
+						2.相似性计算：两者的相似性通过布尔代数运算（与或非）进行判定。
+					</p>
+					<h3 id="adv">优点</h3>
+					<p style="color: white;font-size: 18px;">
+						查询简单直观，易于理解。
+					</p>
+					<h3 id="disadv">缺点</h3>
+					<p style="color: white;font-size: 18px;">
+						无法根据相关性程度进行排序，搜索结果过于粗糙。
+					</p>
 				</div>
-			</div>
 
-							
-			<div class="row" name="1" style="margin-top: 10px;margin-left: 30px">
-				<div class="col-md-10 col-md-offset-2">
-					<form class="form-inline">
-						<div class="form-group">
-								<select name="operator" class="form-control">
-									<option>and</option>
-									<option>or</option>
-									<option>not</option>
-								</select>
-						</div>
-						<div class="form-group">
-							<input name="term" type="text" class="form-control"
-								placeholder="检索词">
-						</div>
-						<div class="form-group">
-								<select name="operator" class="form-control">
-									<option>and</option>
-									<option>or</option>
-									<option>not</option>
-								</select>
-						</div>
-						<div class="form-group">
-							<input name="term" type="text" class="form-control"
-								placeholder="检索词">
-						</div>
-					</form>
+			</div>
+			<div class="col-xs-12 col-md-9 col-ms-offset-5" style="margin-left: 50px;width:900px">
+				<div class="row" style="margin-top: 20px">
+					<div class="col-md-3 col-md-offset-4" >
+						<h2>布尔检索模型</h2>
+					</div>
 				</div>
-			</div>
-		</div>
+				<div class="row" id="expressionTitle" style="margin-top: 50px; margin-left: 30px ">
+					<div class="col-md-3 col-md-offset-2" >
+						<h4>请输入检索条件：</h4>
+					</div>
+				</div>
 
-		<div class="row" id="submitRow" style="margin-top: 20px">
-			<div class="col-md-2 col-md-offset-7">
-				<form class="form-inline">
-					<button id="search" type="button" class="btn btn-default" style="margin-left: 45px ">检索</button>
-				</form>
-			</div>
-		</div>
-  		
+				<div id="expression">
+					<div class="row" style=" margin-left: 30px ">
+						<div class="col-md-10 col-md-offset-2">
+							<form class="form-inline">
+								<div class="form-group">
+									<button name="add" type="button" class="btn btn-default"
+											onclick="addRow()">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									</button>
+									<button name="clear" type="button" class="btn btn-default" onclick="removeRow()">
+										<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+									</button>
+									<input name="term" type="text" class="form-control"
+										   placeholder="检索词">
+								</div>
+								<div class="form-group">
+									<select name="operator" class="form-control">
+										<option>and</option>
+										<option>or</option>
+										<option>not</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input name="term" type="text" class="form-control"
+										   placeholder="检索词">
+								</div>
+							</form>
+						</div>
+					</div>
+
+
+					<div class="row" name="1" style="margin-top: 10px;margin-left: 30px">
+						<div class="col-md-10 col-md-offset-2">
+							<form class="form-inline">
+								<div class="form-group">
+									<select name="operator" class="form-control">
+										<option>and</option>
+										<option>or</option>
+										<option>not</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input name="term" type="text" class="form-control"
+										   placeholder="检索词">
+								</div>
+								<div class="form-group">
+									<select name="operator" class="form-control">
+										<option>and</option>
+										<option>or</option>
+										<option>not</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input name="term" type="text" class="form-control"
+										   placeholder="检索词">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" id="submitRow" style="margin-top: 20px">
+					<div class="col-md-2 col-md-offset-7">
+						<form class="form-inline">
+							<button id="search" type="button" class="btn btn-default" style="margin-left: 45px ">检索</button>
+						</form>
+					</div>
+				</div>
+
 				<div class="row" id="resutlRow" style="margin-left: 30px" >
-		<div class="col-md-10 col-md-offset-2" >
-			<h4>检索结果：</h4>
-			<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:350px; border:1px solid MintCream;">
-			<!--<div class="col-md-10 row pre-scrollable" id="results">-->
-				
+					<div class="col-md-10 col-md-offset-2" >
+						<h4>检索结果：</h4>
+						<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:350px; border:1px solid MintCream;">
+							<!--<div class="col-md-10 row pre-scrollable" id="results">-->
+
+						</div>
+						<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
+						<!--<div class="col-md-10 row pre-scrollable" id="contents" hidden="hidden">
+                            这个div被隐藏，在需要查看结果文档内容时动态显示
+                        </div> -->
+					</div>
+				</div>
 			</div>
-  			<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
-  			<!--<div class="col-md-10 row pre-scrollable" id="contents" hidden="hidden">
-  				这个div被隐藏，在需要查看结果文档内容时动态显示
-  			</div> -->
 		</div>
-	</div>
+
 	</div>
 	</div>
     <div class="footer">

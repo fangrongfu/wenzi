@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 
 /**
@@ -28,8 +30,9 @@ public class AnalysisController {
     public ModelMap analysisController(String data){
         //DivideWord dw=new DivideWord();//调用分词
         String responseText = null;
+        DivideWord dw=new DivideWord();//调用分词
         try {
-            responseText = divideWord.right_to_left_divide(data, 4);//最大正向匹配的从右向左
+            responseText = dw.divide(data, 7);//最大正向匹配
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,5 +40,6 @@ public class AnalysisController {
         ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("results",responseText);
         return modelMap;
-    }
+
+        }
 }

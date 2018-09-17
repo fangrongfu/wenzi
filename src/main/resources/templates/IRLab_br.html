@@ -252,6 +252,27 @@
         </div>
     </div>
 
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×
+					</button>
+				</div>
+				<div class="modal-body">
+					<p id="cont"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
      </body>
 <script type="text/javascript">
     $(function() {
@@ -309,13 +330,15 @@
                         JSONresults = JSONdata.JSONdata;
                         $.each(JSONresults,function(index,obj) {
                             for (key in obj){ //解析出得到的文档名key 和原文contents
-                                //var contents = obj[key];
-                                //aconsole.log(contents)
-                                //alert(key+"-->"+contents);
-                                //$('#results4').append("<languagemodel href='' onclick="+viewContents(contents)+">"+key+"</languagemodel>");
-                                //$('#results4').append("<languagemodel href='#' class='ra'>"+key+"</languagemodel>");
-                                //$('#results4').append("<br>");
-                                $('#results').append("<a id='"+key+"' href='#' class='ra' style='color:white; font-size: 18px'>"+key+"</a>");
+                                var str1 = obj[key].substring(0,45);
+                                var str2 = obj[key].substring(45,90) + "......";
+                                var content = obj[key];
+                                $('#results').append("<a id='"+key+"' href='#' class='ra' style='font-size: 18px;margin-right: 20px' data-toggle='modal' data-target='#myModal' onclick=\"getContent(this.id)\" title='"+content+"'>"+key+"</a>");
+                                $('#results').append("<br>");
+                                $('#results').append(str1);
+                                $('#results').append("<br>");
+                                $('#results').append(str2);
+                                $('#results').append("<br>");
                                 $('#results').append("<br>");
                             }
                         });
@@ -329,8 +352,20 @@
         });
     });
 
+    function getContent(id){
+        $.each(JSONresults,function(index,obj) {
+            for (key in obj){ //解析
+                if(key == id){
+                    var content = obj[id];
+                    $("#cont").text("");
+                    $("#cont").append(content);
+                }
+            }
+        });
+    };
+
     //动态元素<brmodel>添加的事件 查看文档的内容
-    $(function() {//这里是动态元素<brmodel>添加的事件 查看文档的内容
+    /*$(function() {//这里是动态元素<brmodel>添加的事件 查看文档的内容
         $("body").on("click", ".ra", function() {
             //alert('这里是动态元素添加的事件');
             var fileName =$(this).attr("id");
@@ -342,7 +377,6 @@
                 for (key in obj){
                     var contents = obj[fileName];
                     if(fileName==key){
-                        console.log(contents);
                         //$("#contents").empty();
                         //$("#contents").html(fileName+": <br>"+contents);
                         $('#results').text("");// 清空数据
@@ -352,7 +386,7 @@
                 }
             });
         });
-    });
+    });*/
 </script>
 <script type="text/javascript">
     function addRow(){

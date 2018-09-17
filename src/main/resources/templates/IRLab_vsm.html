@@ -56,51 +56,107 @@
 				</ul>
 			</div>
 		</nav>
-	<div class="container">
-		
-		<div class="row" style="margin-top: 20px">
-			<div class="col-md-3 col-md-offset-4" >
-				<h2>向量空间检索模型</h2>
-			</div>
-		</div>
-		<div class="row" id="expressionTitle" style="margin-top: 50px;margin-left: 70px">
-			<div class="col-md-3 col-md-offset-2" >
-				<h4>请输入想检索的内容：</h4>
-			</div>
-		</div>
-
-		<div id="expression">
-			<div class="row" style="margin-left: 70px">
-				<div class="col-md-6 col-md-offset-2">
-   					<div class="input-group">
-      					<input name="term" type="text" class="form-control" placeholder="Search for...">
-     					<span class="input-group-btn">
-        					<button id="search" class="btn btn-default" type="button">检索</button>
-      					</span>
-    				</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 col-md-3 col-ms-offset-2" style="margin-left: 150px;margin-top: 80px">
+					<nav id="navbar-example" class="navbar navbar-default navbar-static" role="navigation">
+						<div class="container-fluid">
+							<div class="navbar-header">
+								<button class="navbar-toggle" type="button" data-toggle="collapse"
+										data-target=".bs-js-navbar-scrollspy">
+									<span class="sr-only">切换导航</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+								<a class="navbar-brand" href="#">语言模型</a>
+							</div>
+							<div class="collapse navbar-collapse bs-js-navbar-scrollspy">
+								<ul class="nav navbar-nav">
+									<li><a href="#brief">简介</a></li>
+									<li><a href="#step">实现步骤</a></li>
+									<li class="dropdown">
+										<a href="#" id="navbarDrop1" class="dropdown-toggle"
+										   data-toggle="dropdown">优缺点
+											<b class="caret"></b>
+										</a>
+										<ul class="dropdown-menu" role="menu"
+											aria-labelledby="navbarDrop1">
+											<li><a href="#adv" tabindex="-1">优点</a></li>
+											<li class="divider"></li>
+											<li><a href="#disadv" tabindex="-1">缺点</a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</nav>
+					<div data-spy="scroll" data-target="#navbar-example" data-offset="0"
+						 style="height:850px;overflow:auto; position: relative;">
+						<h3 id="brief">简介</h3>
+						<p style="color: white;font-size: 18px;">
+							把对文本内容的处理简化为向量空间中的向量运算，并且它以空间上的相似度表达语义的相似度。
+						</p>
+						<h3 id="step">实现步骤</h3>
+						<p style="color: white;font-size: 18px;">
+							1.文档表示：把每个文档表示成一个t维的向量，这t维特征可以是单词、词组、N-gram片段等，最常用的是单词。
+						</p>
+						<p style="color: white;font-size: 18px;">
+							2.特征权重计算：一般采用TF-IDF框架计算权值。
+							词频因子（TF)–局部（一个文档）：最简单的就是直接利用词频数作为TF值。
+							平滑公式：Wtf=1+log（tf）；Wtf=a+（1-a）*[ tf / Max( tf ) ]
+							逆文档频率因子（IDF）–全局（文档集合）
+							计算公式：IDF=log（N/n）。N代表文档集合中的文档总数，n代表特征词在其中多少文档中出现过。
+							TF*IDF框架：Weight（word)=TF*IDF
+						</p>
+						<p style="color: white;font-size: 18px;">
+							3.相似性计算：按照文档和查询的相似性得分从高到低排序作为搜索结果。
+							计算公式：Cosine(Q,D_i )=(∑_(j=1)^t〖w_ij*q_j 〗)/√(∑_(j=1)^t〖w_ij^2*∑_(j=1)^tq_j^2 〗)，w_ij为文档的每个特征权值，q_j为查询的每个特征权值。
+						</p>
+						<h3 id="adv">优点</h3>
+						<p style="color: white;font-size: 18px;">
+							基于线性代数的简单模型；词组的权重不是二元的；允许计算文档和索引之间的连续。
+						</p>
+						<h3 id="disadv">缺点</h3>
+						<p style="color: white;font-size: 18px;">
+							不适用于较长的文件；检索词组必须与文件中出现的词组精确匹配；语义敏感度不佳；易导致“假阴性匹配”；忽略词组间的相关性。
+						</p>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-9 col-ms-offset-5" style="margin-left: 50px;width:900px">
+					<div class="row" style="margin-top: 20px">
+						<div class="col-md-4 col-md-offset-4" >
+							<h2>向量空间检索模型</h2>
+						</div>
+					</div>
+					<div class="row" style="margin-left: 70px;margin-top: 15px">
+						<div class="col-md-6 col-md-offset-2">
+							<form id="mainForm">
+								<div class="form-group">
+									<label for="input">请输入您想要检索的内容：</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="input" placeholder="检索内容">
+										<span class="input-group-btn"><button class="btn btn-default btn-info" type="button" id="search">检索</button></span>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row" id="resutlRow" style="margin-top: 30px;margin-left: 70px" >
+						<div class="col-md-10 col-md-offset-2" >
+							<h4>检索结果：</h4>
+							<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
+							<div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:350px; border:1px solid MintCream;">
+							</div>
+							<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
+							<div class="col-md-10 row pre-scrollable" id="contents" hidden="hidden">
+								这个div被隐藏，在需要查看结果文档内容时动态显示
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-
-							
 		</div>
-		<div class="row" id="resutlRow" style="margin-top: 30px;margin-left: 70px" >
-		<div class="col-md-10 col-md-offset-2" >
-			<h4>检索结果：</h4>
-			<!-- <div class="col-md-10 row pre-scrollable" id="results" style="overflow:auto;margin-left:1px; width:700px; height:200px; border:1px solid MintCream;"> -->
-			<div class="col-md-10 row pre-scrollable" id="results" >	
-				该div用于展示结果文档名<br>
-				<a href="IRLab_Chinese.html">1.txt</a>
-				<br>2.txt<br>3.txt<br>4.txt<br>5.txt<br>6.txt<br>7.txt<br>8.txt<br>
-				1.txt<br>2.txt<br>3.txt<br>4.txt<br>5.txt<br>6.txt<br>7.txt<br>8.txt<br>
-				
-			</div>
-  			<!-- <div class="col-md-10 row pre-scrollable" id="contents" style="margin-left:1px; margin-top: 10px; overflow:auto;width:700px; height:300px; border:1px solid MintCream;font-size: 15px; color:#C0C0C0 "> -->
-  			<div class="col-md-10 row pre-scrollable" id="contents" hidden="hidden">
-  				这个div被隐藏，在需要查看结果文档内容时动态显示
-  			</div> 
-		</div>
-	</div>
-	</div>
 	</div>
 	<div class="footer">
 		<div class="container">
@@ -140,6 +196,101 @@
 		</div>
 	</div>
 
-
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×
+					</button>
+				</div>
+				<div class="modal-body">
+					<p id="cont"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+							data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	 </body>
+
+<script type="text/javascript">
+
+    $(function () { $("[data-toggle='popover']").popover(); });
+
+    $(function() {
+        $("#search").click(function(){
+            var query = $("#input").val();
+            $.ajax({
+                type:"POST",
+                url:"vector/search",
+                dataType:"json",
+                data:{"query":query},
+                contentType:"application/x-www-form-urlencoded; charset=utf-8",
+                traditional: true,
+                success:function(result){
+                    json = result.result;
+                    $.each(json,function(index,obj) {
+                        for (key in obj){ //解析出得到的文档名key 和原文contents
+                            var str1 = obj[key].substring(0,45);
+                            var str2 = obj[key].substring(45,90) + "......";
+                            var content = obj[key];
+                            $('#results').append("<a id='"+key+"' href='#' class='ra' style='font-size: 18px;margin-right: 20px' data-toggle='modal' data-target='#myModal' onclick=\"getContent(this.id)\" title='"+content+"'>"+key+"</a>");
+                            $('#results').append("<br>");
+                            $('#results').append(str1);
+                            $('#results').append("<br>");
+                            $('#results').append(str2);
+                            $('#results').append("<br>");
+                            $('#results').append("<br>");
+                        }
+                    });
+                },
+                error:function(){
+                    alert("检索出错！");
+                    $("#results").text("");// 清空数据
+                }
+            })
+        });
+    });
+
+    function getContent(id){
+        $.each(json,function(index,obj) {
+            for (key in obj){ //解析
+                if(key == id){
+                    var content = obj[id];
+                    $("#cont").text("");
+                    $("#cont").append(content);
+                }
+            }
+        });
+    };
+
+    //动态元素<brmodel>添加的事件 查看文档的内容
+    /*$(function() {//这里是动态元素<brmodel>添加的事件 查看文档的内容
+        $("body").on("click", ".ra", function() {
+            //alert('这里是动态元素添加的事件');
+            var fileName =$(this).attr("id");
+            $(".ra").attr("style","font-size:18px; color:white");
+            $(this).attr("style","font-size:20px; color:#C0C0C0");
+            $.each(json,function(index,obj) {
+                //console.log("到这里没有");
+                for (key in obj){
+                    var contents = obj[fileName];
+                    if(fileName==key){
+                        $(this).popover(contents);
+                        //$("#contents").empty();
+                        //$("#contents").html(fileName+": <br>"+contents);
+                        $('#results').text("");// 清空数据
+                        $('#results').append("<p id='p' style='color: rgb(255, 255, 255); font-size: 18px'></p>");
+                        $("#p").append(contents);
+                    }
+                }
+            });
+        });
+    });*/
+</script>
 </html>

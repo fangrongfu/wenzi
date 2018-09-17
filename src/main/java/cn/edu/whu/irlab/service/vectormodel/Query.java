@@ -148,4 +148,30 @@ public class Query {
         return wordVector;
     }
 
+    public double[] countQueryVector(Map<String, Double> wordIdf){
+
+        double[] queryVector;
+        int idfLength = wordIdf.size();
+        queryVector = new double[idfLength + 1];
+        int num = 0;
+        for (String in : wordIdf.keySet()) {
+            if (wordTf.containsKey(in)) {
+                double tf = wordTf.get(in);
+                double idf = wordIdf.get(in);
+                queryVector[num] = tf * idf;
+            } else {
+                num++;
+            }
+        }
+        double sum = 0;
+        for (double j : queryVector) {
+            sum += Math.pow(j, 2);
+        }
+        sum = Math.pow(sum, 0.5);
+        for (int i = 0; i < queryVector.length; i++) {
+            queryVector[i] = queryVector[i] / sum;
+        }
+        return queryVector;
+    }//求向量
+
 }

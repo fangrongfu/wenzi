@@ -1,12 +1,12 @@
 package cn.edu.whu.irlab.service.vectormodel;
 
+import cn.edu.whu.irlab.util.ReadDoc;
+import org.springframework.util.ResourceUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author fangrf
@@ -180,11 +180,11 @@ public class DocSet {
         return similarity;
     }//计算查询与单个文档的相似度
 
-    public Map<String,Double>  Similarities(Query query) throws FileNotFoundException {
+    public Map<String,Double>  Similarities(double[] queryVector) {
+
         File file = new File(folderPath);
         Map<Integer,Double> id_Similarity=new HashMap<>();
         Map<String,Double> FileName_Similarity=new HashMap<>();
-        double[] qsVector=query.getQueryVector();
 
         if (file.exists())
         {
@@ -195,7 +195,7 @@ public class DocSet {
                 String FilePath=file2.getAbsolutePath();
                 String FileName=file2.getName();
                 Document doc=new Document(FilePath,ID);
-                similarity=countSimilarity(qsVector,doc);
+                similarity=countSimilarity(queryVector,doc);
                 if(similarity!=0.0){
                     id_Similarity.put(ID,similarity);
                     FileName_Similarity.put(FileName,similarity);
@@ -206,4 +206,44 @@ public class DocSet {
 
         return FileName_Similarity;
     }//查询与所有文档的相似度
+
+    public List<Map.Entry<String,Double>> sortSimilarities (double[] queryVector){
+        Map<String,Double> FileName_Similarity=Similarities(queryVector);
+        //将map.entrySet()转换成list
+        List<Map.Entry<String, Double>> list = new ArrayList<>(FileName_Similarity.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+            //降序排序
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                //return o1.getValue().compareTo(o2.getValue());
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        return list;
+    }
+
+    public TreeMap<String, String> result(double[] queryVector){
+        List<Map.Entry<String,Double>> list=sortSimilarities(queryVector);
+        TreeMap<String, String> fileName_value= new TreeMap<String, String>();
+
+        File file = null;
+        try {
+            file = new File(ResourceUtils.getFile("classpath:dataset").getPath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (file.exists())
+        {
+            File[] files = file.listFiles();
+            for (File file2 : files) {
+                for (Map.Entry<String,Double> mapping:list) {
+                    if(mapping.getKey().equals(file2.getName())){
+                        fileName_value.put(file2.getName(), ReadDoc.readDoc(file2.getPath()));
+                    }
+                }
+            }
+        }
+        return fileName_value;
+
+    }
 }

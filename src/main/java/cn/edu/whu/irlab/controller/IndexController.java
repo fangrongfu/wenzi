@@ -96,5 +96,8 @@ public class IndexController {
         return "IRLab_vsm";
     }
 
-
+    @RequestMapping(value = "/IRLab_api")
+    public String apiModel(){
+        return "IRLab_api";
+    }
 }

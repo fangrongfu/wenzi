@@ -83,3 +83,22 @@ body {
     data-spy:scroll;
     data-target:".navbar-example";
 }
+
+#api{
+    font-size: 18px;
+    color: white
+}
+
+#table_api{
+    font-size: 18px;
+    color: white
+}
+
+#table_api_1{
+    font-size: 18px;
+    color: rgb(144, 144, 144)
+}
+
+/* #table_api_2{
+    opacity: 0.5
+} */

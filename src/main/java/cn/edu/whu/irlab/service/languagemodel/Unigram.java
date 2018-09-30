@@ -147,7 +147,6 @@ public TreeMap<String, String> getResultMap() {
         public int compare(Object o1, Object o2) {
             CollationKey key1=collator.getCollationKey(o1.toString());
             CollationKey key2=collator.getCollationKey(o2.toString());
-
             return key1.compareTo(key2);
         }
 

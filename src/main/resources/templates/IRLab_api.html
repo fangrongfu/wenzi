@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8" />
+	<title>API文档</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<script src="jquery-2.1.1/jquery.min.js" type="text/javascript"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<!--  <body style="background-image:url(images/bg8.jpg)"> -->
+<body>
+<div class="mainDiv">
+	<nav class="navbar navbar-inverse">
+		<!-- <div class="container" style="margin-left: 200px"> -->
+		<div class="row" style="margin-left: 200px">
+			<ul class="nav nav-pills">
+				<li role="presentation"
+					style="margin-right: 50px; width: 500px; height: 50px"><img
+						src="images/IRLablogo.png" alt=""
+						style="width: auto; height: auto; max-width: 100%; max-height: 100%"><span
+						style="color: rgb(255, 255, 255); font-size: 20px;text-align: center">IR&NLP虚拟仿真实验平台</span>
+				</li>
+				<li role="presentation" style="margin-top:5px"><a th:href="@{/IRLab_index}">首页</a></li>
+				<li role="presentation" class="dropdown" style="margin-top: 5px; margin-left: 30px;">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"   role="button" aria-haspopup="true" aria-expanded="false">
+						预处理<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li role="presentation" ><a th:href="@{/IRLab_Chinese}">中文</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_English}">英文</a></li>
+					</ul>
+				</li>
+				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						检索模型<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li role="presentation" ><a th:href="@{/IRLab_br}">布尔模型</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_vsm}">向量空间模型</a></li>
+						<!--<li role="presentation" ><a th:href="@{/IRLab_pm}">概率模型</a></li>-->
+						<li role="presentation" ><a th:href="@{/IRLab_lm}">语言模型</a></li>
+					</ul>
+				</li>
+				<li role="presentation" class="dropdown" style="margin-top: 5px;margin-left: 10px;">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						NLP<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li role="presentation" ><a th:href="@{/IRLab_participle}">分词</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_post}">词性标注</a></li>
+						<li role="presentation" ><a th:href="@{/IRLab_ione}">命名实体识别</a></li>
+					</ul>
+				</li>
+				<li role="presentation" style=" margin-top:5px"><a th:href="@{/IRLab_api}">API</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+
+		<div class="row" style="margin-top: 20px">
+			<div class="col-md-3 col-md-offset-4" >
+				<h2>API文档</h2>
+			</div>
+		</div>
+
+		<div class="row" style=" margin-top: 20px">
+			<div class="col-md-9 col-md-offset-2" style="overflow-y:auto;height:800px">
+				<h3>布尔检索模型</h3>
+				<p id="api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为用户提供布尔检索服务，用户不必关注整个模型的具体实现，只需给定检索的语料库，通过构造并提交相应的布尔检索表达式，指定结果的输出参数，即可获取在该范围内的检索结果，即用户需求的文档信息。
+				</p>
+				<p id = "api">
+					接口名：BooleanRetrieval
+				</p>
+				<p id = "api">
+					输入参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">docsPath</td>
+						<td id="table_api">String</td>
+						<td id="table_api">语料库路径</td>
+					</tr>
+					<tr>
+						<td id="table_api">expression</td>
+						<td id="table_api">String</td>
+						<td id="table_api">检索表达式文本内容</td>
+					</tr>
+					<tr>
+						<td id="table_api">stopWords</td>
+						<td id="table_api">HashSet<String></td>
+						<td id="table_api">停用词集合</td>
+					</tr>
+					<tr>
+						<td id="table_api">docsNum</td>
+						<td id="table_api">int</td>
+						<td id="table_api">输出文档数量的最大值，默认为：Integer.MAX_VALUE</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					输出参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">relatedDocs</td>
+						<td id="table_api">HashMap<Integer,String></td>
+						<td id="table_api">满足检索表达式的所有文档</td>
+					</tr>
+					</tbody>
+				</table>
+				<h3>向量空间模型</h3>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提供基于向量空间模型的检索功能。用户只需简单的调用相关API接口即可获取到所需结果。
+				</p>
+				<p id = "api">
+					接口名：VectorSpaceModel
+				</p>
+				<p id = "api">
+					输入参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">query</td>
+						<td id="table_api">String</td>
+						<td id="table_api">查询语句</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					输出参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">createIndex</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文档库的倒排索引</td>
+					</tr>
+					<tr>
+						<td id="table_api">countIdf</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文档库各个词的IDF</td>
+					</tr>
+					<tr>
+						<td id="table_api">segmentQuery</td>
+						<td id="table_api">String</td>
+						<td id="table_api">对查询语句进行中文分词的结果</td>
+					</tr>
+					<tr>
+						<td id="table_api">removePunctuation</td>
+						<td id="table_api">String</td>
+						<td id="table_api">对查询语句去标点的结果</td>
+					</tr>
+					<tr>
+						<td id="table_api">removeStopWords</td>
+						<td id="table_api">String</td>
+						<td id="table_api">对查询语句去停用词的结果</td>
+					</tr>
+					<tr>
+						<td id="table_api">countTf</td>
+						<td id="table_api">String</td>
+						<td id="table_api">查询语句各词的TF</td>
+					</tr>
+					<tr>
+						<td id="table_api">outPutVector</td>
+						<td id="table_api">String</td>
+						<td id="table_api">查询向量</td>
+					</tr>
+					<tr>
+						<td id="table_api">outPutEveryDoc_Tf</td>
+						<td id="table_api">String</td>
+						<td id="table_api">各个文档中各词的TF</td>
+					</tr>
+					<tr>
+						<td id="table_api">outPutEveryDoc_Vector</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文档向量</td>
+					</tr>
+					<tr>
+						<td id="table_api">countSimilarities</td>
+						<td id="table_api">String</td>
+						<td id="table_api">查询与各个文档的相似度</td>
+					</tr>
+					<tr>
+						<td id="table_api">sortSimilarities</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文档库的倒排索引</td>
+					</tr>
+					</tbody>
+				</table>
+				<h3>概率检索模型</h3>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;待开发
+				</p>
+				<p id = "api">
+					接口名：BooleanRetrieval
+				</p>
+				<h3>语言模型</h3>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提供信息检索模型之语言模型各步骤的可视化功能。用户只需简单的调用相关API接口即可获取到所需结果（即语言模型各个步骤处理后的结果）。
+				</p>
+				<p id = "api">
+					接口名：LanguageModel
+				</p>
+				<p id = "api">
+					输入参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">text</td>
+						<td id="table_api">String</td>
+						<td id="table_api">待分析的文本</td>
+					</tr>
+					<tr>
+						<td id="table_api">title</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文章标题</td>
+					</tr>
+					<tr>
+						<td id="table_api">content</td>
+						<td id="table_api">String<String></td>
+						<td id="table_api">正文内容</td>
+					</tr>
+					<tr>
+						<td id="table_api">url</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文章对应的url</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					输出参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">subphrbuf</td>
+						<td id="table_api">String</td>
+						<td id="table_api">所有识别出来的短语，以\t分割</td>
+					</tr>
+					<tr>
+						<td id="table_api">spbtermcount</td>
+						<td id="table_api">int</td>
+						<td id="table_api">识别出来的短语个数</td>
+					</tr>
+					</tbody>
+				</table>
+				<h3>Learning to Rank API</h3>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提供信息检索模型之Learning to Rank模型各步骤的可视化功能。用户只需简单的调用相关API接口即可获取到所需结果（即Learning to Rank模型各个步骤处理后的结果）。
+				</p>
+				<p id = "api">
+					接口名：LearningtoRank
+				</p>
+				<p id = "api">
+					输入参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">text</td>
+						<td id="table_api">String</td>
+						<td id="table_api">待分析的文本</td>
+					</tr>
+					<tr>
+						<td id="table_api">title</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文章标题</td>
+					</tr>
+					<tr>
+						<td id="table_api">content</td>
+						<td id="table_api">String<String></td>
+						<td id="table_api">正文内容</td>
+					</tr>
+					<tr>
+						<td id="table_api">url</td>
+						<td id="table_api">String</td>
+						<td id="table_api">文章对应的url</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					输出参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">subphrbuf</td>
+						<td id="table_api">String</td>
+						<td id="table_api">所有识别出来的短语，以\t分割</td>
+					</tr>
+					<tr>
+						<td id="table_api">spbtermcount</td>
+						<td id="table_api">int</td>
+						<td id="table_api">识别出来的短语个数</td>
+					</tr>
+					</tbody>
+				</table>
+				<h3>命名实体API</h3>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提供命名实体识别功能。用户只需简单的调用相关API接口即可获取到所需结果。
+				</p>
+				<p id = "api">
+					接口名：NamedEntityRecognition
+				</p>
+				<p id = "api">
+					输入参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">text</td>
+						<td id="table_api">String</td>
+						<td id="table_api">待分析的文本</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					输出参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">combtokens</td>
+						<td id="table_api">list</td>
+						<td >
+							<table class="table table-bordered" id="table_api_2">
+								<tbody>
+								<tr>
+									<td id="table_api_1" colspan="3">命名实体识别结果，其中list元素包含以下字段</td>
+								</tr>
+								<tr>
+									<td id="table_api_1">word</td>
+									<td id="table_api_1">String</td>
+									<td id="table_api_1">实体词</td>
+								</tr>
+								<tr>
+									<td id="table_api_1">wlist</td>
+									<td id="table_api_1">list</td>
+									<td id="table_api_1">每一类实体词的列表</td>
+								</tr>
+								<tr>
+									<td id="table_api_1">cls</td>
+									<td id="table_api_1">String</td>
+									<td id="table_api_1">
+										<table class="table table-bordered" id="table_api_2">
+											<tbody>
+											<tr>
+												<td id="table_api_1">人名</td>
+												<td id="table_api_1">PER</td>
+											</tr>
+											<tr>
+												<td id="table_api_1">地名</td>
+												<td id="table_api_1">LOC</td>
+											</tr>
+											<tr>
+												<td id="table_api_1">机构名</td>
+												<td id="table_api_1">ORG</td>
+											</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<h3>词性标注API</h3>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于thulac工具包，提供中文词性标注的功能。
+				</p>
+				<p id = "api">
+					接口名：POSTagging
+				</p>
+				<p id = "api">
+					输入参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">text</td>
+						<td id="table_api">String</td>
+						<td id="table_api">待标注词性的文本</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					输出参数
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">result</td>
+						<td id="table_api">String</td>
+						<td id="table_api">经过词性标注的文本</td>
+					</tr>
+					</tbody>
+				</table>
+				<h4>词性标记集：</h4>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n/名词 np/人名 ns/地名 ni/机构名 nz/其它专名</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m/数词 q/量词 mq/数量词 t/时间词 f/方位词 s/处所词</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v/动词 a/形容词 d/副词 h/前接成分 k/后接成分 i/习语 </p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j/简称 r/代词 c/连词 p/介词 u/助词 y/语气助词</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e/叹词 o/拟声词 g/语素 w/标点 x/其它</p></br>
+				<h4>python调用代码示例：</h4>
+				<p id = "api">import requests</p>
+				<p id = "api">import json</p>
+				<p id = "api">def postTest():</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;url = "http://127.0.0.1:5000/POSTagging/"</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;data = {"content": "“我最想感谢的人是我的导师付磊教授。在他的指导下，我发表8篇SCI论文，总影响因子超过110，这是我给自己最好的毕业礼物。”“希望以后有很多钱，给母校盖几栋楼。”“室友在外地实习，我们带着他的照片来参加典礼，没想到这家伙一早赶回来了。”现场采访环节，毕业生们说着笑着哭着，话语里满含眷恋与感恩。"}</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;headers = {"Content-Type" : "application/json"}</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;r = requests.post(url=url, data=json.dumps(data), headers=headers)</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;print(r.text)</p>
+				<p id = "api">if __name__ == "__main__":</p>
+				<p id = "api">&nbsp;&nbsp;&nbsp;&nbsp;postTest()</p>
+				<h3>分词API说明</h3>
+				<p id = "api">
+					接口名：LexicalAnalysis
+				</p>
+				<p id = "api">
+					1.接口定义
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">功能描述</td>
+						<td id="table_api">接口原型</td>
+						<td id="table_api">功能描述</td>
+					</tr>
+					<tr>
+						<td id="table_api">中文分词</td>
+						<td id="table_api">DivideWord divide (String sentence, int max)</td>
+						<td id="table_api">分词接口，将等待分词的语句作为string形式输入，同时获取词典中词组的最大长度。该接口主要针对分词，将一个汉字序列切分成一个一个单独的词。</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					2.接口描述
+				</p>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将一段中文语句（不大于200字）切分成一个一个单独的词，中间用“/”隔开字词输出字符串格式的结果。
+				</p>
+				<p id = "api">
+					3.参数说明
+				</p>
+				<p id = "api">
+					3.1 接口参数（divide对象中属性）
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">参数名</td>
+						<td id="table_api">是否必选</td>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">sentence</td>
+						<td id="table_api">是</td>
+						<td id="table_api">String</td>
+						<td id="table_api">分词段落作为字符串输入</td>
+					</tr>
+					<tr>
+						<td id="table_api">max</td>
+						<td id="table_api">是</td>
+						<td id="table_api">int</td>
+						<td id="table_api">字典词组的最大长度</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					3.2 返回值类型
+				</p>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td id="table_api">类型</td>
+						<td id="table_api">说明</td>
+					</tr>
+					<tr>
+						<td id="table_api">String</td>
+						<td id="table_api">分词后用斜杠“/”分割一个个词，再使用字符串类型输入。</td>
+					</tr>
+					</tbody>
+				</table>
+				<p id = "api">
+					4. 限制与约束
+				</p>
+				<p id = "api">
+					4.1 输入文本长度
+				</p>
+				<p id = "api">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分词文本限制在200字以内，超过字数无法输入，文本要UTF-8格式，格式错误的不报错，分析结果会不正确。
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="footer">
+	<div class="container">
+		<div class="row footer-top">
+			<div class="col-sm-6 col-lg-6">
+				<h4>信息检索与知识挖掘研究所</h4>
+				<p><span class="glyphicon glyphicon-map-marker"></span>湖北省武汉市武昌区珞珈山武汉大学信息管理学院611室</p>
+			</div>
+			<div class="col-sm-6  col-lg-5 col-lg-offset-1">
+				<div class="row about">
+					<div class="col-xs-3">
+						<h4>机构简介</h4>
+						<ul class="list-unstyled">
+							<li>
+								<a style='color:#fff' href="http://ir.whu.edu.cn/"><span class="glyphicon glyphicon-link"></span>&nbsp关于我们</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-xs-9">
+						<h4>联系方式</h4>
+						<ul class="list-unstyled">
+							<li>
+								<span class="glyphicon glyphicon-envelope">&nbsp电子邮件:weilu@whu.edu.cn</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<hr>
+		<div class="row footer-bottom">
+			<ul class="list-inline text-center">
+				<li>Copyright &copy;2018. 武汉大学信息检索与知识挖掘研究所  All Rights Reserved.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

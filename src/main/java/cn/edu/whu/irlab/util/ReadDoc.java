@@ -9,6 +9,12 @@ import java.io.*;
  * @desc 读文件的工具类
  **/
 public class ReadDoc {
+
+    /**
+     * 读文件
+     * @param docPath
+     * @return
+     */
     public static String readDoc(String docPath)//读文件
     {
         String encoding = "GBK";

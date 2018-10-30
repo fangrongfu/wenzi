@@ -35,17 +35,36 @@ public class BoolRetrivalController {
     public ModelMap retrivalController(@RequestParam(name = "terms",defaultValue = "") String[] terms,@RequestParam(name = "operators", defaultValue = "") String[] operators) {
         ModelMap modelMap = new ModelMap();
         boolean isChinese = true;
-
-//        String dataDir = null;
-//        try {
-//            dataDir = ResourceUtils.getFile("classpath:dataset").getPath();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
         HashMap<String, String> results = new HashMap<String, String>();
-//        BoolRetrivalModel boolRetrivalModel = new BoolRetrivalModel();
-//        Document document = new Document();
+
+        //根据逻辑运算得到的docID 从docID_Name.txt获取对应的docName ,再根据docName从doc_list_new.json中获取title
+        //页面最后展示的是title和content
+
+        TreeMap<String, ArrayList<Integer>> invertedIndex= document.getInvertedIndex(isChinese);
+        ArrayList<Integer>ResultIDs = boolRetrivalModel.boolRetrival(terms, operators,invertedIndex);
+        if(null==ResultIDs) {//没有结果
+            modelMap.addAttribute("JSONdata", 0);
+            return modelMap;
+        }else {
+            results = document.getTitle_Content(ResultIDs,isChinese);
+            if (results.isEmpty()) {//没有结果
+                modelMap.addAttribute("JSONdata", 0);
+                return modelMap;
+            } else {
+                JSONArray jsonArray = JSONArray.fromObject(results);
+                modelMap.addAttribute("JSONdata", jsonArray);
+                return modelMap;
+            }
+        }
+
+    }
+
+    @RequestMapping(value = "/boolRetrival_eng")
+    @ResponseBody
+    public ModelMap retrivalController_eng(@RequestParam(name = "terms",defaultValue = "") String[] terms,@RequestParam(name = "operators", defaultValue = "") String[] operators) {
+        ModelMap modelMap = new ModelMap();
+        boolean isChinese = false;
+        HashMap<String, String> results = new HashMap<String, String>();
 
         //根据逻辑运算得到的docID 从docID_Name.txt获取对应的docName ,再根据docName从doc_list_new.json中获取title
         //页面最后展示的是title和content

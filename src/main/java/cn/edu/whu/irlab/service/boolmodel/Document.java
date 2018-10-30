@@ -1,134 +1,211 @@
 package cn.edu.whu.irlab.service.boolmodel;
 
-import org.springframework.stereotype.Service;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeMap;
 
-import java.io.*;
-import java.util.*;
+import javax.servlet.ServletContext;
 
-@Service
+import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.seg.common.Term;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.springframework.util.ResourceUtils;
+
 public class Document {
-	private TreeMap<Integer, ArrayList<String>> documents;//处理后的文档ID和文档中的词
 	private HashMap<Integer, String> docID_Name; //文档ID和文档名
-	private HashMap<Integer, String> docID_Contents; //文档ID和文档原始内容
-	HashMap<String, String> segments = new HashMap<String, String>();//原始分词结果
-	HashMap<String, String> noPunSegments = new HashMap<String, String>();// 去除标点后的分词结果
+	private HashMap<String, String> Name_Title; //文档名和文档title
+	private HashMap<String, String> Name_Contents; //文档名和文档原始内容
 	
-	public HashMap<String, String> getSegments() {
-		return segments;
-	}
-
-
-
-	public HashMap<String, String> getNoPunSegments() {
-		return noPunSegments;
-	}
 
 
 
 	public Document() {
 		// TODO Auto-generated constructor stub
-		 this.documents = new TreeMap<Integer, ArrayList<String>>();
 		 this.docID_Name = new HashMap<Integer, String>();
-		 this.docID_Contents = new HashMap<Integer, String>();
+		 this.Name_Title = new HashMap<String, String>();
+		 this.Name_Contents = new HashMap<String, String>();
 	}
-	
-	
+	/**
+	 * 获取倒排索引 
+	 * @return
+	 */
+	public TreeMap<String, ArrayList<Integer>> getInvertedIndex() {
+		TreeMap<String, ArrayList<Integer>> invertedIndex = new TreeMap<String, ArrayList<Integer>>(); // 倒排索引
+		String dataDir = null;
+        try {
+            dataDir = ResourceUtils.getFile("classpath:index//term_id1.txt").getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-	public TreeMap<Integer, ArrayList<String>> getDocuments() {
-		return documents;
+		File inverFile = new File(dataDir);
+
+		try {
+			FileInputStream fin = new FileInputStream(inverFile);
+			InputStreamReader ir = new InputStreamReader(fin);
+			BufferedReader br = new BufferedReader(ir);
+			try {
+				String input = br.readLine();
+				JSONObject jsonObj = JSONObject.fromObject(input);
+				Iterator<String> terms = jsonObj.keys();
+				while(terms.hasNext()) {
+					String term = terms.next();
+					JSONArray jsonPostings = jsonObj.getJSONArray(term);
+					ArrayList<Integer> postings = new ArrayList<Integer>();
+//					ArrayList<Integer> postings =(ArrayList<Integer>) JSONArray.toArray(jsonObj.getJSONArray(term));
+//					ArrayList<Integer> postings = (ArrayList<Integer>)jsonObj.get(term);
+					for (int i = 0; i < jsonPostings.size(); i++) {
+						postings.add(jsonPostings.getInt(i));
+						
+					}
+					invertedIndex.put(term, postings);
+				}
+				fin.close();
+				ir.close();
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(invertedIndex);
+		return invertedIndex;
 	}
-
-
-
+	/**
+	 * 获取key值为文档ID，value值为文档name的Map 
+	 * @return
+	 */
 	public HashMap<Integer, String> getDocID_Name() {
+		String dataDir = null;
+		try {
+			dataDir = ResourceUtils.getFile("classpath:index//docID_Name.txt").getPath();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		File file = new File(dataDir);
+		try {
+			FileInputStream fin = new FileInputStream(file);
+			InputStreamReader ir = new InputStreamReader(fin);
+			BufferedReader br = new BufferedReader(ir);
+			try {
+				String input = br.readLine();
+				JSONObject jsonObj = JSONObject.fromObject(input);
+				Iterator<String> docIDs = jsonObj.keys();
+				while(docIDs.hasNext()) {
+					String docID = docIDs.next();
+					String docName = (String) jsonObj.get(docID);
+					docName = docName.substring(0,docName.indexOf('.'));
+					docID_Name.put(Integer.valueOf(docID), docName);
+				}
+				fin.close();
+				ir.close();
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return docID_Name;
 	}
-
-
-
-	public HashMap<Integer, String> getDocID_Contents() {
-		return docID_Contents;
-	}
-
-
-
 	/**
-	 * 读取文档，依次为文档编写docID,提取文档中的词，存入this.docments
-	 * 
-	 * @param docDir    存放文档的文件夹地址
-	 * @param isChinese 文本是否为中文 中文为true 英文为false
-	 * String initDir  NLPIR的lib文件夹路径
-	 * 
+	 * 获取key值为文档name，value值为文档title的Map 
+	 * @return
 	 */
-	public void fetchDocuments(String docDir, boolean isChinese,String initDir) {
-		System.out.println("开始提取文档词汇");
-		// 读取停用词
-		HashSet<String> stopWords = Tokenize.getStopWords();
-		File f = new File(docDir);
-		File[] docs = f.listFiles();
-		int docID = 0;
-		String docName = null;
-		String seg = null;
-		String noPunSeg = null;
-		for (File doc : docs) {
+	public HashMap<String, String> getName_Titles() {
+		String dataDir = null;
+		try {
+			dataDir = ResourceUtils.getFile("classpath:index//doc_list_new.txt").getPath();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		File file = new File(dataDir);
+		try {
+			FileInputStream fin = new FileInputStream(file);
+			InputStreamReader ir = new InputStreamReader(fin);
+			BufferedReader br = new BufferedReader(ir);
 			try {
-				FileInputStream fin = new FileInputStream(doc);
-				InputStreamReader ir = new InputStreamReader(fin,"gb2312");
-				BufferedReader br = new BufferedReader(ir);
-				// 多少文本作为分词的输入，输入如果以一行一行的进行分词，那么换行后的词可能被切开
-				// 考虑以标点符号作为一次读入的划分
-				// 正则表达式
-				ArrayList<String> terms = new ArrayList<String>();//处理后的terms
-				String oneLine = null;
-				StringBuffer contents = new StringBuffer(); //原始的文本内容
-				// 中文分词
-				if (isChinese) {
-					// 下面是以一篇文档中的所有文本进行分词的
-					StringBuffer str = new StringBuffer();
-					while (null != (oneLine = br.readLine())) {//读取一篇文档的内容
-						str.append(oneLine);
-						str.append("\n");
-					}
-					contents = str;
-					// 采用中文分词包NLPIR
-					//System.out.println("使用Nlpir前");
-					NLPIR.init(initDir);
-					//NLPIR.init("D:\\eclipse-workspace\\BooleanRetrival\\lib");
-					//System.out.println("NLPIR.InitState==="+NLPIR.InitState);
-					//System.out.println("NLPIR.init(\"lib\")之后");
-					
-					seg = NLPIR.paragraphProcess(str.toString(),0);
-					String splits = NLPIR.paragraphProcess(str.toString(), 0).replaceAll("\\pP", "");// 去除标点符号
-					noPunSeg = splits;
-					
-					String[] sWords = splits.split(" ");// 以空格切分分词结果
-					String term = null;
-					for (int i = 0; i < sWords.length; i++) {
-						term = Tokenize.tokenize(sWords[i].trim());
-						// 剔除停用词
-						if (!term.equals("") && !stopWords.contains(term)) {
-							terms.add(term);
-						}
-					}
-
-				} else {
-					// 英文分词
-					while (null != (oneLine = br.readLine())) {
-						// 以空格和标点符号作为切分
+				String input = br.readLine();
+				JSONObject jsonObj = JSONObject.fromObject(input);
+				Iterator<String> QNOs = jsonObj.keys();
+				while(QNOs.hasNext()) {
+					String QNO = QNOs.next();
+					JSONObject q_doc = (JSONObject)jsonObj.get(QNO);
+					JSONArray doc_list = q_doc.getJSONArray("doc_list");
+					for (int i = 0; i < doc_list.size(); i++) {
+						JSONObject docInfo = doc_list.getJSONObject(i);
+						String docName = docInfo.getString("doc_id");
+						String docTitle = docInfo.getString("title");
+						Name_Title.put(docName, docTitle);
 					}
 				}
-				//以文件名为文档ID
-				/*int endINdex = doc.getName().indexOf(".");
-				docID = Integer.parseInt(doc.getName().substring(0,endINdex));*/
-				docID++;
-				docName = doc.getName();
-				segments.put(docName, seg);
-				noPunSegments.put(docName,noPunSeg);
-				docID_Name.put(docID,docName);
-				docID_Contents.put(docID, contents.toString());
-				documents.put(docID, terms);
-				//System.out.println(docID+"==>"+doc.getName());
+				fin.close();
+				ir.close();
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		return Name_Title;
+	}
+	/**
+	 * 获取key值为文档name，value值为文档content的Map 
+	 * @return
+	 */
+	public HashMap<String, String> getName_Contents() {
+		String dataDir = null;
+		try {
+			dataDir = ResourceUtils.getFile("classpath:doc_中文").getPath();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		File f = new File(dataDir);
+		File[] docs = f.listFiles();
+		for (File doc : docs) {
+			String docName = doc.getName();
+			if (docName.equals(".DS_Store"))
+                continue;
+			try {
+				FileInputStream fin = new FileInputStream(doc);
+				InputStreamReader ir = new InputStreamReader(fin);
+				BufferedReader br = new BufferedReader(ir);
+				String input = "";
+				docName = docName.substring(0,docName.indexOf('.'));
+				StringBuffer content = new StringBuffer();
+				while((input=br.readLine())!=null) {
+					content.append(input);
+				}
+				Name_Contents.put(docName, content.toString());
+				fin.close();
+				ir.close();
+				br.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,8 +213,31 @@ public class Document {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
+		return Name_Contents;
 	}
+/**
+ * 获取key值为文档title，value值为文档content的Map 	
+ * @param docIDs 文档ID集合
+ * @return
+ */
+public HashMap<String, String> getTitle_Content(ArrayList<Integer> docIDs){
+	HashMap<String, String>Title_Content = new HashMap<String,String>();
+	for (int i = 0; i < docIDs.size(); i++) {
+		int docID = docIDs.get(i);
+		System.out.println(docID);
+		String docName = this.docID_Name.get(docID);
+		System.out.println(docName);
+		String tilte = this.Name_Title.get(docName);
+		System.out.println(tilte);
+		String content = this.Name_Contents.get(docName);
+		System.out.println(content);
+		Title_Content.put(tilte, content);
+	}
+	return Title_Content;
+}
+
 /**
  * 获取某文件夹中的全部文档名
  * @param docDir 文档文件夹路径
@@ -154,45 +254,6 @@ public class Document {
 		}
 		return fileNames;
 		
-	}
-	
-	/**
-	 * 将文档ID、文档名、处理好的文档内容写入文件splitDocs.txt中
-	 */
-	public void writeDocuments() {
-		Iterator<Integer> it = documents.keySet().iterator();
-		int docID = 0;
-		String docName = null;
-		ArrayList<String> terms = new ArrayList<String>();
-		
-		try {
-			//System.out.println(Thread.currentThread().getContextClassLoader().getResource("")+"results//inverstedIndex.txt");
-			FileWriter fw = new FileWriter(new File("results//inverstedIndex.txt"));
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write("docID\t docName\t terms");
-			bw.newLine();
-			while(it.hasNext()) {
-				docID = it.next();
-				docName = docID_Name.get(docID);
-				terms = documents.get(docID);
-				StringBuffer docContent = new StringBuffer();
-				docContent.append(docID+"\t ");
-				docContent.append(docName+"\t ");
-					for (int i = 0; i < terms.size(); i++) {
-						docContent.append(terms.get(i));
-						docContent.append(" ");
-					}
-					bw.write(docContent.toString());
-					bw.newLine();
-			}
-			bw.flush();
-			fw.close();
-			bw.close();
-			System.out.println("处理后的文件存储完毕！");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 }

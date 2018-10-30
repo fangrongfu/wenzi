@@ -26,22 +26,15 @@ import java.util.TreeMap;
 public class BoolRetrivalController {
 
     @Autowired
-    private BoolRetrivalModel boolRetrivalModel;
+    private BoolRetrivalModel boolRetrivalModel = new BoolRetrivalModel();
     @Autowired
-    private Document document;
-    @Autowired
-    private MyComparator myComparator;
-    @Autowired
-    private NLPIR nlpir;
-    @Autowired
-    private NLPIRTest nlpirTest;
-    @Autowired
-    private Tokenize tokenize;
+    private Document document = new Document();
 
-    @RequestMapping(value = "/boolRetrival")
+    @RequestMapping(value = "/boolRetrival_chn")
     @ResponseBody
     public ModelMap retrivalController(@RequestParam(name = "terms",defaultValue = "") String[] terms,@RequestParam(name = "operators", defaultValue = "") String[] operators) {
         ModelMap modelMap = new ModelMap();
+        boolean isChinese = true;
 
 //        String dataDir = null;
 //        try {
@@ -51,19 +44,19 @@ public class BoolRetrivalController {
 //        }
 
         HashMap<String, String> results = new HashMap<String, String>();
-        BoolRetrivalModel br = new BoolRetrivalModel();
-        Document document = new Document();
+//        BoolRetrivalModel boolRetrivalModel = new BoolRetrivalModel();
+//        Document document = new Document();
 
         //根据逻辑运算得到的docID 从docID_Name.txt获取对应的docName ,再根据docName从doc_list_new.json中获取title
         //页面最后展示的是title和content
 
-        TreeMap<String, ArrayList<Integer>> invertedIndex= document.getInvertedIndex();
-        ArrayList<Integer>ResultIDs = br.boolRetrival(terms, operators,invertedIndex);
+        TreeMap<String, ArrayList<Integer>> invertedIndex= document.getInvertedIndex(isChinese);
+        ArrayList<Integer>ResultIDs = boolRetrivalModel.boolRetrival(terms, operators,invertedIndex);
         if(null==ResultIDs) {//没有结果
             modelMap.addAttribute("JSONdata", 0);
             return modelMap;
         }else {
-            results = document.getTitle_Content(ResultIDs);
+            results = document.getTitle_Content(ResultIDs,isChinese);
             if (results.isEmpty()) {//没有结果
                 modelMap.addAttribute("JSONdata", 0);
                 return modelMap;

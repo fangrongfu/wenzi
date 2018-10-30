@@ -42,11 +42,16 @@ public class Document {
 	 * 获取倒排索引 
 	 * @return
 	 */
-	public TreeMap<String, ArrayList<Integer>> getInvertedIndex() {
+	public TreeMap<String, ArrayList<Integer>> getInvertedIndex(boolean isChinese) {
 		TreeMap<String, ArrayList<Integer>> invertedIndex = new TreeMap<String, ArrayList<Integer>>(); // 倒排索引
 		String dataDir = null;
         try {
-            dataDir = ResourceUtils.getFile("classpath:index//term_id1.txt").getPath();
+        	if (isChinese){
+				dataDir = ResourceUtils.getFile("classpath:index//term_id1.txt").getPath();
+			}else {
+				dataDir = ResourceUtils.getFile("classpath:index//term_id1_eng.txt").getPath();
+			}
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -85,17 +90,22 @@ public class Document {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(invertedIndex);
+//		System.out.println(invertedIndex);
 		return invertedIndex;
 	}
 	/**
 	 * 获取key值为文档ID，value值为文档name的Map 
 	 * @return
 	 */
-	public HashMap<Integer, String> getDocID_Name() {
+	public HashMap<Integer, String> getDocID_Name(boolean isChinese) {
 		String dataDir = null;
 		try {
-			dataDir = ResourceUtils.getFile("classpath:index//docID_Name.txt").getPath();
+			if (isChinese){
+				dataDir = ResourceUtils.getFile("classpath:index//docID_Name.txt").getPath();
+			}else {
+				dataDir = ResourceUtils.getFile("classpath:index//docID_Name_eng.txt").getPath();
+			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -133,10 +143,15 @@ public class Document {
 	 * 获取key值为文档name，value值为文档title的Map 
 	 * @return
 	 */
-	public HashMap<String, String> getName_Titles() {
+	public HashMap<String, String> getName_Titles(boolean isChinese) {
 		String dataDir = null;
 		try {
-			dataDir = ResourceUtils.getFile("classpath:index//doc_list_new.txt").getPath();
+			if (isChinese){
+				dataDir = ResourceUtils.getFile("classpath:index//doc_list_new.json").getPath();
+			}
+			else {
+				dataDir = ResourceUtils.getFile("classpath:index//doc_list_new_eng.json").getPath();
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -179,10 +194,15 @@ public class Document {
 	 * 获取key值为文档name，value值为文档content的Map 
 	 * @return
 	 */
-	public HashMap<String, String> getName_Contents() {
+	public HashMap<String, String> getName_Contents(boolean isChinese) {
 		String dataDir = null;
 		try {
-			dataDir = ResourceUtils.getFile("classpath:doc_中文").getPath();
+			if (isChinese){
+				dataDir = ResourceUtils.getFile("classpath:doc_中文").getPath();
+			}
+			else {
+				dataDir = ResourceUtils.getFile("classpath:doc_英文").getPath();
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -222,17 +242,16 @@ public class Document {
  * @param docIDs 文档ID集合
  * @return
  */
-public HashMap<String, String> getTitle_Content(ArrayList<Integer> docIDs){
+public HashMap<String, String> getTitle_Content(ArrayList<Integer> docIDs,boolean isChinese){
 	HashMap<String, String>Title_Content = new HashMap<String,String>();
+	this.getDocID_Name(isChinese);
+	this.getName_Titles(isChinese);
+	this.getName_Contents(isChinese);
 	for (int i = 0; i < docIDs.size(); i++) {
 		int docID = docIDs.get(i);
-		System.out.println(docID);
 		String docName = this.docID_Name.get(docID);
-		System.out.println(docName);
 		String tilte = this.Name_Title.get(docName);
-		System.out.println(tilte);
 		String content = this.Name_Contents.get(docName);
-		System.out.println(content);
 		Title_Content.put(tilte, content);
 	}
 	return Title_Content;

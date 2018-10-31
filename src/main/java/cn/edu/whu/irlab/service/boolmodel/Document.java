@@ -49,7 +49,7 @@ public class Document {
         	if (isChinese){
 				dataDir = ResourceUtils.getFile("classpath:index//term_id1.txt").getPath();
 			}else {
-				dataDir = ResourceUtils.getFile("classpath:index//term_id1_eng.txt").getPath();
+				dataDir = ResourceUtils.getFile("classpath:index//en_term_id.txt").getPath();
 			}
 
         } catch (FileNotFoundException e) {
@@ -103,7 +103,7 @@ public class Document {
 			if (isChinese){
 				dataDir = ResourceUtils.getFile("classpath:index//docID_Name.txt").getPath();
 			}else {
-				dataDir = ResourceUtils.getFile("classpath:index//docID_Name_eng.txt").getPath();
+				dataDir = ResourceUtils.getFile("classpath:index//en_docid_Name.txt").getPath();
 			}
 
 		} catch (FileNotFoundException e) {
@@ -170,7 +170,12 @@ public class Document {
 					JSONArray doc_list = q_doc.getJSONArray("doc_list");
 					for (int i = 0; i < doc_list.size(); i++) {
 						JSONObject docInfo = doc_list.getJSONObject(i);
-						String docName = docInfo.getString("doc_id");
+						String docName;
+						if (isChinese){
+							 docName = docInfo.getString("doc_id");
+						}else {
+							 docName = docInfo.getString("doc_id")+"_eng";
+						}
 						String docTitle = docInfo.getString("title");
 						Name_Title.put(docName, docTitle);
 					}
@@ -247,11 +252,20 @@ public HashMap<String, String> getTitle_Content(ArrayList<Integer> docIDs,boolea
 	this.getDocID_Name(isChinese);
 	this.getName_Titles(isChinese);
 	this.getName_Contents(isChinese);
+	System.out.println("docID_Name: "+this.docID_Name);
+	System.out.println("Name_Title: " + this.Name_Title);
+	System.out.println("Name_Contents: "+this.Name_Contents);
 	for (int i = 0; i < docIDs.size(); i++) {
 		int docID = docIDs.get(i);
 		String docName = this.docID_Name.get(docID);
+//		System.out.println("docname: "+docName);
+//		System.out.println("================");
 		String tilte = this.Name_Title.get(docName);
+//		System.out.println("title: "+tilte);
+//		System.out.println("================");
 		String content = this.Name_Contents.get(docName);
+//		System.out.println("content: "+content);
+//		System.out.println("===================");
 		Title_Content.put(tilte, content);
 	}
 	return Title_Content;

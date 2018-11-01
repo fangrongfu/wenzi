@@ -41,7 +41,7 @@ public class BoolRetrivalController {
         //页面最后展示的是title和content
 
         TreeMap<String, ArrayList<Integer>> invertedIndex= document.getInvertedIndex(isChinese);
-        ArrayList<Integer>ResultIDs = boolRetrivalModel.boolRetrival(terms, operators,invertedIndex);
+        ArrayList<Integer>ResultIDs = boolRetrivalModel.boolRetrival(terms, operators,invertedIndex,isChinese);
         if(null==ResultIDs) {//没有结果
             modelMap.addAttribute("JSONdata", 0);
             return modelMap;
@@ -70,7 +70,7 @@ public class BoolRetrivalController {
         //页面最后展示的是title和content
 
         TreeMap<String, ArrayList<Integer>> invertedIndex= document.getInvertedIndex(isChinese);
-        ArrayList<Integer>ResultIDs = boolRetrivalModel.boolRetrival(terms, operators,invertedIndex);
+        ArrayList<Integer>ResultIDs = boolRetrivalModel.boolRetrival(terms, operators,invertedIndex,isChinese);
         if(null==ResultIDs) {//没有结果
             modelMap.addAttribute("JSONdata", 0);
             return modelMap;

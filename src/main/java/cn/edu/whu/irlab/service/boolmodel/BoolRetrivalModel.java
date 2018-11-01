@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import cn.edu.whu.irlab.util.Process;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -29,11 +30,27 @@ public class BoolRetrivalModel {
 	 * @param operators 按序存储的逻辑表达式 
 	 * @return ArrayList<Integer> results
 	 */
-	public ArrayList<Integer> boolRetrival(String[] queryTerms, String[] operators,TreeMap<String, ArrayList<Integer>> invertedIndex) {
+	public ArrayList<Integer> boolRetrival(String[] queryTerms, String[] operators,TreeMap<String, ArrayList<Integer>> invertedIndex, boolean isChinese) {
 		//将检索词全部转化为小写
-		for (int i = 0; i < queryTerms.length; i++) {
-			queryTerms[i] = Tokenize.tokenize(queryTerms[i]);
+		if(!isChinese){
+			Process process = new Process();
+			for (int i = 0; i < queryTerms.length; i++) {
+				try {
+					String preresult = process.Pre_Process(queryTerms[i]); //文档标准化的结果，data为需要处理的数据
+					String result = process.StopwordsRemove(preresult);//去停用词的结果
+					ArrayList<String> porter_Result = process.PorterStem(result);//porter词干提取结果
+					queryTerms[i] = porter_Result.get(0);
+					System.out.println("porter_Result:"+porter_Result);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
+
+
+//			queryTerms[i] = Tokenize.tokenize(queryTerms[i]);
+		}
+
+
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		if(null==operators) { //如果只有一个检索词 (前端传递的operators可能为null)
 			if (invertedIndex.containsKey(queryTerms[0])) {

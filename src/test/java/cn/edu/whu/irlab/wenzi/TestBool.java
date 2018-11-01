@@ -13,10 +13,10 @@ public class TestBool {
 		TreeMap<String, ArrayList<Integer>> invertedIndex = document.getInvertedIndex(isChinese);
 
 		BoolRetrivalModel br = new BoolRetrivalModel();
-//		String[] queryTerms = {"阿里","阿坝"};
-		String[] queryTerms = {"abil","accessori"};
+		String[] queryTerms = {"阿里","阿坝"};
+//		String[] queryTerms = {"ability","accessori"};
 		String[] operators = {"not"};
-		ArrayList<Integer> resultsID = br.boolRetrival(queryTerms, operators, invertedIndex);
+		ArrayList<Integer> resultsID = br.boolRetrival(queryTerms, operators, invertedIndex,isChinese);
 		HashMap<String,String> title_Contents = document.getTitle_Content(resultsID,isChinese);
 		System.out.println(resultsID);
 

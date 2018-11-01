@@ -8,6 +8,15 @@
 ZT  
 ZZ  
 a  
+aa
+aaa
+aafa
+aaaaasssss
+ab
+aba
+abc
+abcd
+ac
 a's  
 able  
 about  
@@ -56,7 +65,9 @@ anyone
 anything  
 anyway  
 anyways  
-anywhere  
+anywhere
+ao
+ap  
 apart  
 apparently  
 appear  
@@ -398,7 +409,11 @@ longest
 look  
 looking  
 looks  
-ltd  
+ltd 
+ll
+lllllllllll
+lllllllllllllll
+kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk 
 m  
 made  
 mainly  
@@ -561,6 +576,7 @@ provides
 put  
 puts  
 q  
+qqqqqqqqqqqqqqqqqq
 que  
 quickly  
 quite  

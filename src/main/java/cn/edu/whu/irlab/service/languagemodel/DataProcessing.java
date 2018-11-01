@@ -1,8 +1,14 @@
 package cn.edu.whu.irlab.service.languagemodel;
 
+import cn.edu.whu.irlab.util.ChProcess;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.StandardTokenizer;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
@@ -73,7 +79,6 @@ public class DataProcessing {
             stopword.add(string1);
         }
         br1.close();
-        //HashSet<String> stopWords = Tokenize.getStopWords();
         File f1 = new File(docDir);
         File[] docs = f1.listFiles();
         int docID = 1;
@@ -83,7 +88,7 @@ public class DataProcessing {
         for (File doc : docs) {
             try {
                 FileInputStream fin = new FileInputStream(doc);
-                InputStreamReader ir = new InputStreamReader(fin, "GBK");
+                InputStreamReader ir = new InputStreamReader(fin, "UTF-8");
                 BufferedReader br = new BufferedReader(ir);
                 // 多少文本作为分词的输入，输入如果以一行一行的进行分词，那么换行后的词可能被切开
                 // 考虑以标点符号作为一次读入的划分
@@ -91,7 +96,7 @@ public class DataProcessing {
                 ArrayList<String> terms = new ArrayList<String>();//处理后的terms
                 String oneLine = null;
                 StringBuffer contents = new StringBuffer(); //原始的文本内容
-                // 中文分词
+     // 中文预处理：分词、去标点、去停用词
                 if (isChinese) {
                     // 下面是以一篇文档中的所有文本进行分词的
                     StringBuffer str = new StringBuffer();
@@ -100,31 +105,11 @@ public class DataProcessing {
                         str.append("\n");
                     }
                     contents = str;
-                    // 采用中文分词包Hanlp
-                    //System.out.println("使用Hanlp前");
                     String data = new String(str);
-                    //System.out.println("使用Hanlp之后");
-                    HanLP.Config.ShowTermNature = false;//关闭词性显示
-                    List<Term> termList = StandardTokenizer.segment(data);
-                    List stri = termList;//将分词结果存入数组
-                    String strResult = "";
-                    for (int i = 0; i < stri.size(); i++) {
-                        strResult += stri.get(i) + " ";
-                    }
-                    seg = strResult;
-                    // HanLP.Config.ShowTermNature = false;
-                    //带标点的分词结果
-
-                    String splits = strResult.replaceAll("\\pP", "");// 去除标点符号
-                    noPunSeg = splits;
-                    String[] sWords = splits.split(" ");
-                    ArrayList<String> TermList = new ArrayList();
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < sWords.length; i++) {
-                        TermList.add(sWords[i]);
-                    }
-                    TermList.removeAll(stopword);//去停用词
-                    terms = TermList;
+                    ChProcess chProcess = new ChProcess();
+                    seg = chProcess.FenCi(data);//分词
+                    noPunSeg = chProcess.PunRemove(seg);//去标点
+                    terms = chProcess.StopwordsRemove(noPunSeg);//去停用词
 
                     docName = doc.getName();//文档名
                     segments.put(docName, seg);

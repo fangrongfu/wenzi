@@ -129,6 +129,14 @@
 			<version>7.5.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-analyzers-smartcn -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-smartcn</artifactId>
+			<version>7.5.0</version>
+		</dependency>
+
+
 
 
 

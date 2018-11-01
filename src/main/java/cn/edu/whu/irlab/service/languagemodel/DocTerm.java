@@ -1,17 +1,18 @@
 package cn.edu.whu.irlab.service.languagemodel;
 
+import java.util.ArrayList;
+
 public class DocTerm {
-    // public Object setTerm;
     public Integer docId;
     public String rate;
-    String term;
-
+    public String term;
+    public ArrayList locate;
+    public int tf;
 
     public Integer getDocId() {
         return docId;
     }
-    public void setDocId(Integer docId) { this.docId = docId;
-    }
+    public void setDocId(Integer docId) { this.docId = docId; }
     public String getRate() {
         return rate;
     }
@@ -21,7 +22,17 @@ public class DocTerm {
     public String getTerm() {
         return term;
     }
-    public void setTerm(String term) {
-        this.term = term;
+    public void setTerm(String term) { this.term = term; }
+    public ArrayList getLocate() {
+        return locate;
+    }
+    public void setLocate(ArrayList locate) {
+        this.locate = locate;
+    }
+    public int getTf() {
+        return tf;
+    }
+    public void setTf(int tf) {
+        this.tf = tf;
     }
 }

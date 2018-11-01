@@ -1,5 +1,7 @@
 package cn.edu.whu.irlab.service.languagemodel;
 
+import org.springframework.util.ResourceUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +17,10 @@ public class Test {
         boolean isChinese = true;
         //  TermMap br = new TermMap();
         //  Index index=new Index();
+        String dataDir = null;
         DataProcessing dataProcessing = new DataProcessing();
-        dataProcessing.fetchDocuments("data", isChinese);//处理文件//
+        dataDir = ResourceUtils.getFile("classpath:doc_中文").getPath();
+        dataProcessing.fetchDocuments(dataDir, isChinese);//处理文件//
         dataProcessing.writeDocuments();//写入文件
         TreeMap<Integer, ArrayList<String>> documents = dataProcessing.getDocuments();
         HashMap<Integer, String> docID_Content = dataProcessing.getDocID_Contents();
@@ -32,10 +36,10 @@ public class Test {
         perplexity.buildPerpleMap(λ,resultMap,documents);//建立平滑索引
         Map perpleMap=perplexity.getPerpleMap();//获得平滑索引
         String data="国家的春天";
-        Retrival retrival=new Retrival();//检索
-        ArrayList queryterms=retrival.querySolve(data);//预处理
-        for (int i=0;i<queryterms.size();i++){//验证处理结果
-            System.out.println(queryterms.get(i));}
+       // Retrival retrival=new Retrival();//检索
+       // ArrayList queryterms=retrival.querySolve(data);//预处理
+       // for (int i=0;i<queryterms.size();i++){//验证处理结果
+           // System.out.println(queryterms.get(i));}
         //ArrayList<Integer>results=retrival.calcRate(queryterms,documents,resultMap,perpleMap);//检索
         //System.out.println(results);
     }

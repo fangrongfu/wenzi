@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static cn.edu.whu.irlab.util.WordCorrect.correct;
-
+//英文预处理：文档标准化、去停用词、词干还原
 public class Process {
     //文档标准化：去除原文档中的数字、连字符、标点符号、大写转小写、拼写检查
     public String Pre_Process(String data) throws IOException { //data：要处理的数据
@@ -69,7 +69,7 @@ public class Process {
         return result;
     }
 
-//词干提取
+//词干还原
        public ArrayList<String>PorterStem(String result) throws IOException {
         ArrayList<String> porter_Result = new ArrayList<String>();
            String dataDir = null;
